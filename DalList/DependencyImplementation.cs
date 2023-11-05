@@ -3,9 +3,9 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class TaskImplementation : ITask
+public class DependencyImplementation : IDependency
 {
-    public int Create(Task item)
+    public int Create(Dependency item)
     {
         throw new NotImplementedException();
     }
@@ -15,17 +15,17 @@ public class TaskImplementation : ITask
         throw new NotImplementedException();
     }
 
-    public Task? Read(int id)
+    public Dependency? Read(int id)
     {
         throw new NotImplementedException();
     }
 
-    public List<Task?> ReadAll()
+    public List<Dependency?> ReadAll()
     {
         throw new NotImplementedException();
     }
 
-    public void Update(Task item)
+    public void Update(Dependency item)
     {
         throw new NotImplementedException();
     }

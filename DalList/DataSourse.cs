@@ -14,7 +14,7 @@ internal static class DataSourse
 
         internal const int startDependencyId = 0;
         private static int nextDependencyId = startDependencyId;
-        internal static int NextTaskependencyId { get => nextDependencyId++; }
+        internal static int NextDependencyId { get => nextDependencyId++; }
     }
-}
 
+}

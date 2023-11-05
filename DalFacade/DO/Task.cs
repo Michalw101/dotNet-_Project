@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System;
+
+namespace DO;
 /// <summary>
 /// Task entity
 /// </summary>
@@ -18,18 +20,25 @@
 /// <param name="ComplexityLevel"></param>
 public record Task
 (
-    int Id
-    string Description
-    string? Alias
-    bool MileStone = false
-    datetime CreatedAt
-    datetime? Start = null
-    datetime ScheduledDate
-    datetime? ForecastDate = null
-    datetime? Deadline = null
-    datetime? Copmlete = null
-    string? Deliverables = null
+    int Id,
+    string Description,
+    DateTime CreatedAt,
+    DateTime ScheduledDate,
+    int EngineerId,
+    EngineerExperience ComplexityLevel,
+    string? Alias = null,
+    bool MileStone = false,
+    DateTime? Start = null,
+    DateTime? ForecastDate = null,
+    DateTime? Deadline = null,
+    DateTime? Copmlete = null,
+    string? Deliverables = null,
     string? Remarks = null
-    int EngineerId
-    EngineerExperience ComplexityLevel
-);
+)
+{
+    /// <summary>
+    /// Date - creation date of the current student record
+    /// </summary>
+    public DateTime Date => DateTime.Now; //get only
+}
+

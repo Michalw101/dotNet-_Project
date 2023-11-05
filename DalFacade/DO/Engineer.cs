@@ -1,5 +1,4 @@
 ﻿namespace DO;
-
 /// <summary>
 /// Engineer entity represent engineer with all its props.
 /// </summary>
@@ -10,10 +9,9 @@
 /// <param name="Cost">salary for hour</param>
 public record Engineer
 (
-    int Id
-    string Name
-    string MailAddress
-    EngineerExperience Level
+    int Id,
+    string Name,
+    string Email,
+    EngineerExperience Level,
     double? Cost = null
 );
-

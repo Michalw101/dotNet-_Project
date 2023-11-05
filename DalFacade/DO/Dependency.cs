@@ -7,7 +7,7 @@
 /// <param name="DependsonTask"></param>
 public record Dependency
 (
-    int Id
-    int DependentTask
+    int Id,
+    int DependentTask,
     int DependsonTask
 );

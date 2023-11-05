@@ -1,8 +1,10 @@
 ﻿namespace DO;
+
 public enum EngineerExperience
 {
-    Expert,
-    Junyor,
-    ThirdYear
+    FirstYear,
+    SecondYear,
+    ThirdYear,
+    ExtraYear
 }
 

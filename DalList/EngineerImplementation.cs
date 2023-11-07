@@ -16,11 +16,21 @@ public class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        if (Read(id) == null)
+        Engineer? newEngineer = DataSourse.Engineers.Find(element => element.Id == id);
+
+        if (newEngineer == null)
         {
             throw new Exception($"Engineer with ID = {id} does not exist");
         }
-
+        else if (DataSourse.Tasks.Find(element => element.EngineerId == id) != null)
+        {
+            throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
+        }
+        else
+        {
+            Engineer engineer = newEngineer with { isActive = false };
+            Update(engineer);
+        } 
     }
 
     public Engineer? Read(int id)
@@ -38,21 +48,12 @@ public class EngineerImplementation : IEngineer
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = Read(item.Id);
+        Engineer? engineer = DataSourse.Engineers.Find(element=>element.Id == item.Id);
         if (engineer == null)
         {
             throw new Exception($"Engineer with ID = {item.Id} does not exist");
         }
-        Delete(item.Id);
-        engineer = item;
-
-
-        for (int i = 0; i < DataSourse.Engineers.Count; i++)
-            if (DataSourse.Engineers[i].Id == item.Id)
-            {
-                if(DataSourse.Engineers[i]==null)
-                    throw new Exception($"Engineer with ID = {item.Id} does not exist");
-                DataSourse.Engineers[i]= engineer;
-            }
+        DataSourse.Engineers.Remove(engineer);
+        DataSourse.Engineers.Add(item);
     }
 }

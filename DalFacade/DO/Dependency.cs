@@ -4,10 +4,10 @@
 /// </summary>
 /// <param name="Id"></param>
 /// <param name="DependentTask"></param>
-/// <param name="DependsonTask"></param>
+/// <param name="DependsOnTask"></param>
 public record Dependency
 (
     int Id,
     int DependentTask,
-    int DependsonTask
+    int DependsOnTask
 );

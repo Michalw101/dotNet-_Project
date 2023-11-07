@@ -34,11 +34,5 @@ public record Task
     DateTime? Copmlete = null,
     string? Deliverables = null,
     string? Remarks = null
-)
-{
-    /// <summary>
-    /// Date - creation date of the current student record
-    /// </summary>
-    public DateTime Date => DateTime.Now; //get only
-}
+);
 

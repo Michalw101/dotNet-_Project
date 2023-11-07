@@ -14,4 +14,7 @@ public record Engineer
     string Email,
     EngineerExperience Level,
     double? Cost = null
-);
+)
+{
+    public bool isActive { get; set; } = true;
+}

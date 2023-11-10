@@ -1,6 +1,8 @@
 ﻿namespace DalTest;
 internal class RandomGenerator
 {
+    public const int MIN_ID = 200000000;
+    public const int MAX_ID = 400000000;
     private static readonly Random s_rand = new();
     public RandomGenerator()
     {
@@ -13,7 +15,7 @@ internal class RandomGenerator
         string[] results = new string[2];
         results[0] = _firstName[rFirst.Next(_firstName.Length)];
         results[1] = _lastName[rLast.Next(_lastName.Length)];
-        return results[0]+results[1];
+        return results[0]+ " " + results[1];
     }
     Random rFirst;
     Random rLast;
@@ -26,5 +28,10 @@ internal class RandomGenerator
     {
         int id = s_rand.Next(MIN_ID, MAX_ID);
         return id;
+    }
+    public int GenerateLevel()
+    {
+        int level = s_rand.Next(0, 3);
+        return level;
     }
 }

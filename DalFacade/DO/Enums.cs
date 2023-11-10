@@ -2,9 +2,8 @@
 
 public enum EngineerExperience
 {
-    FirstYear,
-    SecondYear,
-    ThirdYear,
-    ExtraYear
+    Rookie,
+    Junior,
+    Expert
 }
 

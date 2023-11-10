@@ -8,7 +8,7 @@ public static class Initialization
     private static ITask? s_dalTask;
     private static IDependency? s_dalDependency;
 
-    private static void createEngineers()
+    public static void createEngineers()
     {
         RandomGenerator r = new RandomGenerator();
         string[] names = new string[10];
@@ -16,27 +16,27 @@ public static class Initialization
         {
             names[i] = r.GenerateName();
         }
-
         foreach (var _name in names)
         {
             int _id;
-            do
-                _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalEngineer!.Read(_id) != null);
-
-            bool? _b = (_id % 2) == 0 ? true : false;
-            Year _year =
-            (Year)s_rand.Next((int)Year.FirstYear, (int)Year.ExtraYear + 1);
-
-            DateTime start = new DateTime(1995, 1, 1);
-            int range = (DateTime.Today - start).Days;
-            DateTime _bdt = start.AddDays(s_rand.Next(range));
-
-            Student newStu = new(_id, _name, null, _b, _year, _bdt);
-
-            s_dalStudent!.Create(newStu);
-
+            if(s_dalEngineer != null)
+            {
+                do
+                    _id = r.GenerateID();
+                while (s_dalEngineer!.Read(_id) != null);
+            }
+            else
+                _id = r.GenerateID();
+            string _email = _name.Split(" ")[0]+"@gmail.com";
+            EngineerExperience _level = (EngineerExperience)r.GenerateLevel();
+            Engineer newEngineer = new(_id, _name, _email, _level);
+            s_dalEngineer!.Create(newEngineer);
         }
-
+    }
+    
+    public static void DO(IEngineer? dalEngineer)
+    {
+        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        createEngineers();
     }
 }

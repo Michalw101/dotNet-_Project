@@ -63,14 +63,21 @@ public static class Initialization
     }
     public static void createDependency()
     {
-        List<Task> list = s_dalTask!.ReadAll();
-       int _dependentId = r.EngineerForTask(list, _complexityLevel);
-        
+        List<Task?> list = s_dalTask!.ReadAll();
+        int _dependentId = r.GenerateDependentTask(list);
+        int _dependsOnId = r.GenerateDepensOnTask(list, _dependentId);
+        Dependency newDependency = new(0, _dependentId, _dependsOnId);
+        s_dalDependency!.Create(newDependency);
+
     }
 
-    public static void DO(IEngineer? dalEngineer)
+    public static void DO(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency)
     {
         s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         createEngineers();
+        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        createTasks();
+        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        createDependency();
     }
 }

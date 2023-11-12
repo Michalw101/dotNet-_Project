@@ -140,15 +140,18 @@ internal class RandomGenerator
         while (engineers[i].Level != _level);
         return id;
     }
-    public int GenerateDependentTask(List<DO.Task> tasks)
+    public int GenerateDependentTask(List<DO.Task?> tasks)
     {
         int i, id;
-        do
-        {
-            i = s_rand.Next(0, engineers.Count() + 1);
-            id = engineers[i].Id;
-        }
-        while (engineers[i].Level != _level);
+        i = s_rand.Next(0, tasks.Count() + 1);
+        id = tasks[i]!.Id;
+        return id;
+    }
+    public int GenerateDepensOnTask(List<DO.Task?> tasks, int dependentId)
+    {
+        int i, id;
+        i = s_rand.Next(0, dependentId);
+        id = tasks[i]!.Id;
         return id;
     }
 }

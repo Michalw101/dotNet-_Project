@@ -23,16 +23,16 @@ public record Task
     int Id,
     string Description,
     DateTime CreatedAt,
-    DateTime ScheduledDate,
+    DateTime ForecastDate,
+    DateTime Deadline,
     int EngineerId,
     EngineerExperience ComplexityLevel,
-    string? Alias = null,
     bool MileStone = false,
+    string? Alias = null,
     DateTime? Start = null,
-    DateTime? ForecastDate = null,
-    DateTime? Deadline = null,
     DateTime? Copmlete = null,
     string? Deliverables = null,
     string? Remarks = null
 );
+
 

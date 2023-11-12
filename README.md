@@ -1,5 +1,6 @@
-Hello!!
 # dotNet5784_0063_9415
-Welcome world:)
-final commit
-finish
+
+Our Mini-Project
+(who called it MINI?!)
+
+Avital & Michal

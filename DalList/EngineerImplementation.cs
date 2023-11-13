@@ -11,6 +11,7 @@ public class EngineerImplementation : IEngineer
         {
             throw new Exception($"Engineer with ID = {item.Id} already exist");
         }
+        DataSourse.Engineers.Add(item);
         return item.Id;
     }
 

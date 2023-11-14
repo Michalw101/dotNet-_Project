@@ -9,7 +9,6 @@ internal class RandomGenerator
     public const int MAX_ID = 400000000;
     private static readonly Random s_rand = new();
 
-
     public string GenerateEngineerName()
     {
         string[] _firstName = new string[] { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter" };
@@ -19,7 +18,6 @@ internal class RandomGenerator
         results[1] = _lastName[s_rand.Next(_lastName.Length)];
         return results[0] + " " + results[1];
     }
-
 
     public int GenerateEngineerID()
     {

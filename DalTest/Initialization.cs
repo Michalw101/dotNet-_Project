@@ -55,18 +55,20 @@ public static class Initialization
             _deadLine = _forecastDate.AddDays(7);
             _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
             _engineerId = r.EngineerForTask(list, _complexityLevel);
-            Task newTask = new(0, _description, _crearedAt, _forecastDate, _deadLine, _engineerId, _complexityLevel,_alias);
+            Task newTask = new(0, _description, _crearedAt, _forecastDate, _deadLine, _engineerId, _complexityLevel, _alias);
             s_dalTask!.Create(newTask);
         }
     }
     public static void createDependency()
     {
         List<Task?> list = s_dalTask!.ReadAll();
-        int _dependentId = r.GenerateDependentTask(list);
-        int _dependsOnId = r.GenerateDepensOnTask(list, _dependentId);
-        Dependency newDependency = new(0, _dependentId, _dependsOnId);
-        s_dalDependency!.Create(newDependency);
-
+        for (int i = 0; i < 10; i++)
+        {
+            int _dependentId = r.GenerateDependentTask(list);
+            int _dependsOnId = r.GenerateDepensOnTask(list, _dependentId);
+            Dependency newDependency = new(0, _dependentId, _dependsOnId);
+            s_dalDependency!.Create(newDependency);
+        }
     }
 
     public static void DO(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency)

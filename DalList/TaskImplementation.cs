@@ -49,6 +49,6 @@ public class TaskImplementation : ITask
             throw new Exception($"Task with ID = {item.Id} does not exist");
         }
         DataSourse.Tasks.Remove(task);
-        DataSourse.Tasks.Add(task);
+        DataSourse.Tasks.Add(item);
     }
 }

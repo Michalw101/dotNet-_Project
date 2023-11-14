@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// Task entity
 /// </summary>
@@ -27,12 +25,12 @@ public record Task
     DateTime Deadline,
     int EngineerId,
     EngineerExperience ComplexityLevel,
-    bool MileStone = false,
     string? Alias = null,
+    string? Remarks = null,
+    bool MileStone = false,
     DateTime? Start = null,
     DateTime? Copmlete = null,
-    string? Deliverables = null,
-    string? Remarks = null
+    string? Deliverables = null
 );
 
 

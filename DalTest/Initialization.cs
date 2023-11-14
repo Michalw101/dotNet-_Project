@@ -42,7 +42,6 @@ public static class Initialization
         string[] aliases = r.GenerateTaskAlias();
         double[] weeks = r.GenerateSchedual();
         string _description, _alias;
-        bool _mileStone;
         DateTime _crearedAt, _forecastDate, _deadLine;
         EngineerExperience _complexityLevel;
         List<Engineer> list = s_dalEngineer!.ReadAll();
@@ -51,13 +50,12 @@ public static class Initialization
         {
             _description = descriptions[i];
             _alias = aliases[i];
-            _mileStone = r.GenerateMileStone();
             _crearedAt = DateTime.Now;
             _forecastDate = _crearedAt.AddDays(weeks[i] * 7);
             _deadLine = _forecastDate.AddDays(7);
             _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
             _engineerId = r.EngineerForTask(list, _complexityLevel);
-            Task newTask = new(0, _description, _crearedAt, _forecastDate, _deadLine, _engineerId, _complexityLevel, _mileStone, _alias);
+            Task newTask = new(0, _description, _crearedAt, _forecastDate, _deadLine, _engineerId, _complexityLevel,_alias);
             s_dalTask!.Create(newTask);
         }
     }

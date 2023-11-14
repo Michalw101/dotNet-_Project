@@ -95,11 +95,6 @@ internal class RandomGenerator
         };
         return aliases;
     }
-    public bool GenerateMileStone()
-    {
-        int mileStone = s_rand.Next(0, 2);
-        return Convert.ToBoolean(mileStone);
-    }
     public double[] GenerateSchedual()
     {
         double[] schedual = {

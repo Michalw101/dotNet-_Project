@@ -29,7 +29,7 @@ public class EngineerImplementation : IEngineer
         }
         else
         {
-            Engineer engineer = newEngineer with { isActive = false };
+            Engineer engineer = newEngineer with { IsActive = false };
             Update(engineer);
         } 
     }

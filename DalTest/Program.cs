@@ -1,15 +1,17 @@
 ﻿using Dal;
 using DalApi;
 using DO;
-using System;
+using DalList;
 
 namespace DalTest
 {
     internal class Program
     {
-        private static IEngineer? s_dalEngineer = new EngineerImplementation();
-        private static ITask? s_dalTask = new TaskImplementation();
-        private static IDependency? s_dalDependency = new DependencyImplementation();
+        //private static IEngineer? s_dalEngineer = new EngineerImplementation();
+        //private static ITask? s_dalTask = new TaskImplementation();
+        //private static IDependency? s_dalDependency = new DependencyImplementation();
+        static readonly IDal s_dal = new DalList(); 
+
         private static void EngineerMethods()
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
@@ -32,22 +34,22 @@ namespace DalTest
                     EngineerExperience.TryParse(Console.ReadLine(), out level);
                     cost = Convert.ToDouble(Console.ReadLine());
                     engineer = new Engineer(id, name!, email!, level, cost);
-                    s_dalEngineer!.Create(engineer);
+                    s_dal.Engineer.Create(engineer);
                     break;
                 case 2:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    Console.WriteLine(s_dalEngineer!.Read(id));
+                    Console.WriteLine(s_dal.Engineer.Read(id));
                     break;
                 case 3:
-                    List<Engineer> list = s_dalEngineer!.ReadAll();
+                    List<Engineer?> list = s_dal.Engineer.ReadAll();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;
                 case 4:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    engineer = s_dalEngineer!.Read(id);
+                    engineer = s_dal.Engineer.Read(id);
                     Console.WriteLine(engineer);
                     Console.WriteLine("Enter engineer details : id, name, email, level (0 - rookie, 1 - junior, 2 - expert), cost");
                     input = Console.ReadLine();
@@ -61,12 +63,12 @@ namespace DalTest
                     input = Console.ReadLine();
                     cost = (input == "") ? engineer!.Cost : Convert.ToDouble(input);
                     engineer = new Engineer(id, name!, email!, level, cost);
-                    s_dalEngineer.Update(engineer);
+                    s_dal.Engineer.Update(engineer);
                     break;
                 case 5:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    s_dalEngineer!.Delete(id);
+                    s_dal.Engineer.Delete(id);
                     
                     break;
             }
@@ -98,22 +100,22 @@ namespace DalTest
                     alias = Console.ReadLine();
                     remarks= Console.ReadLine();
                     task = new DO.Task(0, description, createdAt,forecastDate,deadline, engineerId, complexityLevel, alias, remarks);
-                    s_dalTask!.Create(task);
+                    s_dal.Task.Create(task);
                     break;
                 case 2:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    Console.WriteLine(s_dalTask!.Read(id));
+                    Console.WriteLine(s_dal.Task.Read(id));
                     break;
                 case 3:
-                    List<DO.Task?> list = s_dalTask!.ReadAll();
+                    List<DO.Task?> list = s_dal.Task.ReadAll();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;
                 case 4:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    task = s_dalTask!.Read(id);
+                    task = s_dal.Task.Read(id);
                     Console.WriteLine(task);
                     Console.WriteLine("Enter task details : id, description, forecastDate, deadline, engineerId, complexityLevel(0 - rookie, 1 - junior, 2 - expert), alias, remarks");
                     input = Console.ReadLine();
@@ -132,12 +134,12 @@ namespace DalTest
                     input = Console.ReadLine();
                     remarks = (input == "") ? task!.Remarks : input;
                     task = new DO.Task(id, description, createdAt, forecastDate, deadline, engineerId, complexityLevel, alias, remarks);
-                    s_dalTask.Update(task);
+                    s_dal.Task.Update(task);
                     break;
                 case 5:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    s_dalTask!.Delete(id);
+                    s_dal.Task.Delete(id);
                     break;
             }
         }
@@ -159,22 +161,22 @@ namespace DalTest
                     int.TryParse(Console.ReadLine(), out dependentTask);
                     int.TryParse(Console.ReadLine(), out dependsOnTask);
                     dependency = new Dependency(0, dependentTask, dependsOnTask);
-                    s_dalDependency!.Create(dependency);
+                    s_dal.Dependency.Create(dependency);
                     break;
                 case 2:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    Console.WriteLine(s_dalDependency!.Read(id));
+                    Console.WriteLine(s_dal.Dependency.Read(id));
                     break;
                 case 3:
-                    List<Dependency?> list = s_dalDependency!.ReadAll();
+                    List<Dependency?> list = s_dal.Dependency.ReadAll();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;
                 case 4:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    dependency = s_dalDependency!.Read(id);
+                    dependency = s_dal.Dependency!.Read(id);
                     Console.WriteLine(dependency);
                     Console.WriteLine("Enter dependency details : dependent task, depends on task");
                     input = Console.ReadLine();
@@ -182,12 +184,12 @@ namespace DalTest
                     input = Console.ReadLine();
                     dependsOnTask = (input == "") ? dependency!.DependsOnTask : Convert.ToInt32(input);
                     dependency = new Dependency(id, dependentTask, dependsOnTask);
-                    s_dalDependency.Update(dependency);
+                    s_dal.Dependency.Update(dependency);
                     break;
                 case 5:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
-                    s_dalDependency!.Delete(id);
+                    s_dal.Dependency.Delete(id);
                     break;
             }
         }
@@ -196,7 +198,7 @@ namespace DalTest
         {
             try
             {
-                Initialization.DO(s_dalEngineer, s_dalTask, s_dalDependency);
+                Initialization.DO(s_dal);
                 int choice;
                 do
                 {
@@ -218,8 +220,7 @@ namespace DalTest
                             break;
                         default:
                             break;
-
-                    }
+                    }                         
                 }
                 while (choice != 0);
             }

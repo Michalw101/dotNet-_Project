@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
@@ -42,9 +42,9 @@ public class EngineerImplementation : IEngineer
         return null;
     }
 
-    public List<Engineer> ReadAll()
+    public List<Engineer?> ReadAll()
     {
-        return new List<Engineer>(DataSourse.Engineers);
+        return new List<Engineer?>(DataSourse.Engineers);
     }
 
     public void Update(Engineer item)

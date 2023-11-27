@@ -2,26 +2,27 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
         int id = DataSourse.Config.NextTaskId;
-        Task newTask=item with { Id = id };
+        Task newTask = item with { Id = id };
         DataSourse.Tasks.Add(newTask);
         return newTask.Id;
     }
 
     public void Delete(int id)
     {
-        Task? newTask = DataSourse.Tasks.Find(element => element.Id == id);
+        Task? newTask = DataSourse.Tasks.FirstOrDefault(element => element.Id == id);
 
         if (newTask == null)
         {
             throw new Exception($"Task with ID = {id} does not exist");
         }
-        else if (DataSourse.Dependencies.Find(element => element.DependsOnTask == id) != null)
+        else if (DataSourse.Dependencies.FirstOrDefault(element => element.DependsOnTask == id) != null)
         {
             throw new Exception($"Task with ID = {id} has dependent task and cannot be deleted");
         }
@@ -30,10 +31,7 @@ internal class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        for (int i = 0; i < DataSourse.Tasks.Count; i++)
-            if (DataSourse.Tasks[i].Id == id)
-                return DataSourse.Tasks[i];
-        return null;
+        return DataSourse.Tasks.FirstOrDefault(element => element.Id == id);
     }
 
     public List<Task?> ReadAll()
@@ -43,7 +41,7 @@ internal class TaskImplementation : ITask
 
     public void Update(Task item)
     {
-        Task? task = DataSourse.Tasks.Find(element => element.Id == item.Id);
+        Task? task = DataSourse.Tasks.FirstOrDefault(element => element.Id == item.Id);
         if (task == null)
         {
             throw new Exception($"Task with ID = {item.Id} does not exist");

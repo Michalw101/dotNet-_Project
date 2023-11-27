@@ -17,13 +17,13 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        Engineer? newEngineer = DataSourse.Engineers.Find(element => element.Id == id);
+        Engineer? newEngineer = (DataSourse.Engineers).FirstOrDefault(element => element.Id == id);
 
         if (newEngineer == null)
         {
             throw new Exception($"Engineer with ID = {id} does not exist");
         }
-        else if (DataSourse.Tasks.Find(element => element.EngineerId == id) != null)
+        else if ((DataSourse.Tasks).Where(element => element.EngineerId == id) != null)
         {
             throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
         }
@@ -35,11 +35,8 @@ internal class EngineerImplementation : IEngineer
     }
 
     public Engineer? Read(int id)
-    {
-        for (int i = 0; i < DataSourse.Engineers.Count; i++)
-            if (DataSourse.Engineers[i].Id == id)
-                return DataSourse.Engineers[i];
-        return null;
+    { 
+        return (DataSourse.Engineers).FirstOrDefault(element => element.Id == id); ;
     }
 
     public List<Engineer?> ReadAll()
@@ -49,7 +46,7 @@ internal class EngineerImplementation : IEngineer
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = DataSourse.Engineers.Find(element=>element.Id == item.Id);
+        Engineer? engineer = DataSourse.Engineers.FirstOrDefault(element=>element.Id == item.Id);
         if (engineer == null)
         {
             throw new Exception($"Engineer with ID = {item.Id} does not exist");

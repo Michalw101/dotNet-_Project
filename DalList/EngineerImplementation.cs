@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Data.Common;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -11,19 +12,19 @@ internal class EngineerImplementation : IEngineer
         {
             throw new Exception($"Engineer with ID = {item.Id} already exist");
         }
-        DataSourse.Engineers.Add(item);
+        DataSource.Engineers.Add(item);
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        Engineer? newEngineer = (DataSourse.Engineers).FirstOrDefault(element => element.Id == id);
+        Engineer? newEngineer = (DataSource.Engineers).FirstOrDefault(element => element.Id == id);
 
         if (newEngineer == null)
         {
             throw new Exception($"Engineer with ID = {id} does not exist");
         }
-        else if ((DataSourse.Tasks).Where(element => element.EngineerId == id) != null)
+        else if ((DataSource.Tasks).Where(element => element.EngineerId == id) != null)
         {
             throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
         }
@@ -36,22 +37,30 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     { 
-        return (DataSourse.Engineers).FirstOrDefault(element => element.Id == id); ;
+        return (DataSource.Engineers).FirstOrDefault(element => element.Id == id); ;
     }
 
-    public List<Engineer?> ReadAll()
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
-        return new List<Engineer?>(DataSourse.Engineers);
+        if (filter != null)
+        {
+            return from item in DataSource.Engineers
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Engineers
+               select item;
     }
+
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = DataSourse.Engineers.FirstOrDefault(element=>element.Id == item.Id);
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(element=>element.Id == item.Id);
         if (engineer == null)
         {
             throw new Exception($"Engineer with ID = {item.Id} does not exist");
         }
-        DataSourse.Engineers.Remove(engineer);
-        DataSourse.Engineers.Add(item);
+        DataSource.Engineers.Remove(engineer);
+        DataSource.Engineers.Add(item);
     }
 }

@@ -7,48 +7,48 @@ internal class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
-        int id = DataSourse.Config.NextTaskId;
+        int id = DataSource.Config.NextTaskId;
         Task newTask=item with { Id = id };
-        DataSourse.Tasks.Add(newTask);
+        DataSource.Tasks.Add(newTask);
         return newTask.Id;
     }
 
     public void Delete(int id)
     {
-        Task? newTask = DataSourse.Tasks.Find(element => element.Id == id);
+        Task? newTask = DataSource.Tasks.FirstOrDefault(element => element.Id == id);
 
         if (newTask == null)
         {
             throw new Exception($"Task with ID = {id} does not exist");
         }
-        else if (DataSourse.Dependencies.Find(element => element.DependsOnTask == id) != null)
+        else if (DataSource.Dependencies.FirstOrDefault(element => element.DependsOnTask == id) != null)
         {
             throw new Exception($"Task with ID = {id} has dependent task and cannot be deleted");
         }
-        DataSourse.Tasks.Remove(newTask);
+        DataSource.Tasks.Remove(newTask);
     }
 
     public Task? Read(int id)
     {
-        for (int i = 0; i < DataSourse.Tasks.Count; i++)
-            if (DataSourse.Tasks[i].Id == id)
-                return DataSourse.Tasks[i];
-        return null;
+        return DataSource.Tasks.FirstOrDefault(element => element.Id == id);
     }
 
-    public List<Task?> ReadAll()
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
-        return new List<Task?>(DataSourse.Tasks);
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else
+            return DataSource.Tasks.Where(filter);
     }
 
     public void Update(Task item)
     {
-        Task? task = DataSourse.Tasks.Find(element => element.Id == item.Id);
+        Task? task = DataSource.Tasks.FirstOrDefault(element => element.Id == item.Id);
         if (task == null)
         {
             throw new Exception($"Task with ID = {item.Id} does not exist");
         }
-        DataSourse.Tasks.Remove(task);
-        DataSourse.Tasks.Add(item);
+        DataSource.Tasks.Remove(task);
+        DataSource.Tasks.Add(item);
     }
 }

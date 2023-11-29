@@ -7,44 +7,44 @@ internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
-        int id = DataSourse.Config.NextDependencyId;
+        int id = DataSource.Config.NextDependencyId;
         Dependency newDependency = item with { Id = id };
-        DataSourse.Dependencies.Add(newDependency);
+        DataSource.Dependencies.Add(newDependency);
         return id;
     }
 
     public void Delete(int id)
     {
-        Dependency? newDependency = DataSourse.Dependencies.Find(element => element.Id == id);
+        Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
 
         if (newDependency == null)
         {
             throw new Exception($"Dependecy with ID = {id} does not exist");
         }
-        DataSourse.Dependencies.Remove(newDependency);
+        DataSource.Dependencies.Remove(newDependency);
     }
 
     public Dependency? Read(int id)
     {
-        for (int i = 0; i < DataSourse.Dependencies.Count; i++)
-            if (DataSourse.Dependencies[i].Id == id)
-                return DataSourse.Dependencies[i];
-        return null;
+        return DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
     }
 
-    public List<Dependency?> ReadAll()
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        return new List<Dependency?>(DataSourse.Dependencies);
+        if (filter == null)
+            return DataSource.Dependencies.Select(item => item);
+        else
+            return DataSource.Dependencies.Where(filter);
     }
 
     public void Update(Dependency item)
     {
-        Dependency? dependency = DataSourse.Dependencies.Find(element => element.Id == item.Id);
+        Dependency? dependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == item.Id);
         if (dependency == null)
         {
             throw new Exception($"Dependency with ID = {item.Id} does not exist");
         }
-        DataSourse.Dependencies.Remove(dependency);
-        DataSourse.Dependencies.Add(item);
+        DataSource.Dependencies.Remove(dependency);
+        DataSource.Dependencies.Add(item);
     }
 }

@@ -10,7 +10,7 @@ namespace DalTest
         //private static IEngineer? s_dalEngineer = new EngineerImplementation();
         //private static ITask? s_dalTask = new TaskImplementation();
         //private static IDependency? s_dalDependency = new DependencyImplementation();
-        static readonly IDal s_dal = new DalList(); 
+        static readonly IDal s_dal = new Dal.DalList(); 
 
         private static void EngineerMethods()
         {

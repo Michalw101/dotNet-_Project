@@ -11,19 +11,19 @@ internal class EngineerImplementation : IEngineer
         {
             throw new Exception($"Engineer with ID = {item.Id} already exist");
         }
-        DataSourse.Engineers.Add(item);
+        DataSource.Engineers.Add(item);
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        Engineer? newEngineer = DataSourse.Engineers.Find(element => element.Id == id);
+        Engineer? newEngineer = DataSource.Engineers.FirstOrDefault(element => element.Id == id);
 
         if (newEngineer == null)
         {
             throw new Exception($"Engineer with ID = {id} does not exist");
         }
-        else if (DataSourse.Tasks.Find(element => element.EngineerId == id) != null)
+        else if (DataSource.Tasks.FirstOrDefault(element => element.EngineerId == id) != null)
         {
             throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
         }
@@ -36,25 +36,25 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     {
-        for (int i = 0; i < DataSourse.Engineers.Count; i++)
-            if (DataSourse.Engineers[i].Id == id)
-                return DataSourse.Engineers[i];
-        return null;
+        return DataSource.Engineers.FirstOrDefault(element => element.Id == id);
     }
 
-    public List<Engineer?> ReadAll()
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
-        return new List<Engineer?>(DataSourse.Engineers);
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else
+            return DataSource.Engineers.Where(filter);
     }
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = DataSourse.Engineers.Find(element=>element.Id == item.Id);
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(element=>element.Id == item.Id);
         if (engineer == null)
         {
             throw new Exception($"Engineer with ID = {item.Id} does not exist");
         }
-        DataSourse.Engineers.Remove(engineer);
-        DataSourse.Engineers.Add(item);
+        DataSource.Engineers.Remove(engineer);
+        DataSource.Engineers.Add(item);
     }
 }

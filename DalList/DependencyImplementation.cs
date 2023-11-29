@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class DependencyImplementation : IDependency
 {
@@ -10,13 +11,13 @@ internal class DependencyImplementation : IDependency
         int id = DataSource.Config.NextDependencyId;
         Dependency newDependency = item with { Id = id };
         DataSource.Dependencies.Add(newDependency);
-        return id;
+        return newDependency.Id;
     }
 
     public void Delete(int id)
     {
         Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
-
+        
         if (newDependency == null)
             throw new Exception($"Dependecy with ID = {id} does not exist");
         }

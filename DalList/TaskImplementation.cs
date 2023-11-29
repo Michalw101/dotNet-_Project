@@ -9,7 +9,7 @@ internal class TaskImplementation : ITask
     public int Create(Task item)
     {
         int id = DataSource.Config.NextTaskId;
-        Task newTask = item with { Id = id };
+        Task newTask=item with { Id = id };
         DataSource.Tasks.Add(newTask);
         return newTask.Id;
     }
@@ -34,16 +34,12 @@ internal class TaskImplementation : ITask
         return DataSource.Tasks.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
+    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
     {
-        if (filter != null)
-        {
-            return from item in DataSource.Tasks
-                   where filter(item)
-                   select item;
-        }
-        return from item in DataSource.Tasks
-               select item;
+        if (filter == null)
+            return DataSource.Tasks.Select(item => item);
+        else
+            return DataSource.Tasks.Where(filter);
     }
 
 

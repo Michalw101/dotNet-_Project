@@ -19,6 +19,7 @@ internal class DependencyImplementation : IDependency
 
         if (newDependency == null)
             throw new Exception($"Dependecy with ID = {id} does not exist");
+        }
         DataSource.Dependencies.Remove(newDependency);
     }
 
@@ -27,16 +28,12 @@ internal class DependencyImplementation : IDependency
         return DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
     {
-        if (filter != null)
-        {
-            return from item in DataSource.Dependencies
-                   where filter(item)
-                   select item;
-        }
-        return from item in DataSource.Dependencies
-               select item;
+        if (filter == null)
+            return DataSource.Dependencies.Select(item => item);
+        else
+            return DataSource.Dependencies.Where(filter);
     }
 
 

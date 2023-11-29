@@ -18,13 +18,13 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        Engineer? newEngineer = (DataSource.Engineers).FirstOrDefault(element => element.Id == id);
+        Engineer? newEngineer = DataSource.Engineers.FirstOrDefault(element => element.Id == id);
 
         if (newEngineer == null)
         {
             throw new Exception($"Engineer with ID = {id} does not exist");
         }
-        else if ((DataSource.Tasks).Where(element => element.EngineerId == id) != null)
+        else if (DataSource.Tasks.FirstOrDefault(element => element.EngineerId == id) != null)
         {
             throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
         }
@@ -36,20 +36,16 @@ internal class EngineerImplementation : IEngineer
     }
 
     public Engineer? Read(int id)
-    { 
-        return (DataSource.Engineers).FirstOrDefault(element => element.Id == id); ;
+    {
+        return DataSource.Engineers.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
     {
-        if (filter != null)
-        {
-            return from item in DataSource.Engineers
-                   where filter(item)
-                   select item;
-        }
-        return from item in DataSource.Engineers
-               select item;
+        if (filter == null)
+            return DataSource.Engineers.Select(item => item);
+        else
+            return DataSource.Engineers.Where(filter);
     }
 
 

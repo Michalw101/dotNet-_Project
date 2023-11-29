@@ -61,6 +61,7 @@ public static class Initialization
         }
     }
    //e0556771499@gmail.com =אפרת פינץ   
+   //מייל
     public static void createDependency()
     {
         List<Task?> list = s_dal!.Task.ReadAll();

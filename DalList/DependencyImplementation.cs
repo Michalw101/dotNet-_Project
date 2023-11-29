@@ -18,7 +18,6 @@ internal class DependencyImplementation : IDependency
         Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
 
         if (newDependency == null)
-        {
             throw new Exception($"Dependecy with ID = {id} does not exist");
         }
         DataSource.Dependencies.Remove(newDependency);
@@ -36,6 +35,8 @@ internal class DependencyImplementation : IDependency
         else
             return DataSource.Dependencies.Where(filter);
     }
+
+
 
     public void Update(Dependency item)
     {

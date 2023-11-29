@@ -45,7 +45,7 @@ public static class Initialization
         string _description, _alias;
         DateTime _crearedAt, _forecastDate, _deadLine;
         EngineerExperience _complexityLevel;
-        List<Engineer> list = s_dal!.Engineer.ReadAll();
+        List<Engineer> list = s_dal.Engineer.ReadAll();
         int _engineerId;
         for (int i = 0; i < descriptions.Length; i++)
         {
@@ -60,6 +60,7 @@ public static class Initialization
             s_dal.Task!.Create(newTask);
         }
     }
+   //e0556771499@gmail.com =אפרת פינץ   
     public static void createDependency()
     {
         List<Task?> list = s_dal!.Task.ReadAll();

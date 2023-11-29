@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class TaskImplementation : ITask
 {
@@ -40,6 +41,7 @@ internal class TaskImplementation : ITask
         else
             return DataSource.Tasks.Where(filter);
     }
+
 
     public void Update(Task item)
     {

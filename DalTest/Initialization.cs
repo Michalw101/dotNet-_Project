@@ -45,7 +45,7 @@ public static class Initialization
         string _description, _alias;
         DateTime _crearedAt, _forecastDate, _deadLine;
         EngineerExperience _complexityLevel;
-        List<Engineer> list = s_dal!.Engineer.ReadAll();
+        List<Engineer?> list = s_dal!.Engineer.ReadAll().ToList();
         int _engineerId;
         for (int i = 0; i < descriptions.Length; i++)
         {
@@ -64,7 +64,7 @@ public static class Initialization
    //מייל
     public static void createDependency()
     {
-        List<Task?> list = s_dal!.Task.ReadAll();
+        List<Task?> list = s_dal!.Task.ReadAll().ToList();
         for (int i = 0; i < 10; i++)
         {
             int _dependentId = r.GenerateDependentTask(list);

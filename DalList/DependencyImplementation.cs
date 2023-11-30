@@ -17,13 +17,11 @@ internal class DependencyImplementation : IDependency
     public void Delete(int id)
     {
         Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
-        
+
         if (newDependency == null)
             throw new Exception($"Dependecy with ID = {id} does not exist");
-        }
         DataSource.Dependencies.Remove(newDependency);
     }
-
     public Dependency? Read(int id)
     {
         return DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
@@ -37,8 +35,6 @@ internal class DependencyImplementation : IDependency
             return DataSource.Dependencies.Where(filter);
     }
 
-
-
     public void Update(Dependency item)
     {
         Dependency? dependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == item.Id);
@@ -50,3 +46,5 @@ internal class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(item);
     }
 }
+    
+

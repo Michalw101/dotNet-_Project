@@ -42,7 +42,7 @@ namespace DalTest
                     Console.WriteLine(s_dal.Engineer.Read(id));
                     break;
                 case 3:
-                    List<Engineer?> list = s_dal.Engineer.ReadAll();
+                    List<Engineer?> list = s_dal.Engineer.ReadAll().ToList();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;
@@ -108,7 +108,7 @@ namespace DalTest
                     Console.WriteLine(s_dal.Task.Read(id));
                     break;
                 case 3:
-                    List<DO.Task?> list = s_dal.Task.ReadAll();
+                    List<DO.Task?> list = s_dal.Task.ReadAll().ToList();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;
@@ -169,7 +169,7 @@ namespace DalTest
                     Console.WriteLine(s_dal.Dependency.Read(id));
                     break;
                 case 3:
-                    List<Dependency?> list = s_dal.Dependency.ReadAll();
+                    List<Dependency?> list = s_dal.Dependency.ReadAll().ToList();
                     foreach (var item in list)
                         Console.WriteLine(item);
                     break;

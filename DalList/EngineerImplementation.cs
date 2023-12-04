@@ -10,7 +10,7 @@ internal class EngineerImplementation : IEngineer
     {
         if (Read(item.Id) != null)
         {
-            throw new Exception($"Engineer with ID = {item.Id} already exist");
+            throw new DalAlreadyExistsException($"Student with ID={item.Id} already exists");
         }
         DataSource.Engineers.Add(item);
         return item.Id;
@@ -22,11 +22,11 @@ internal class EngineerImplementation : IEngineer
 
         if (newEngineer == null)
         {
-            throw new Exception($"Engineer with ID = {id} does not exist");
+            throw new DalDoesNotExistException($"Engineer with ID = {id} does not exist");
         }
         else if (DataSource.Tasks.FirstOrDefault(element => element.EngineerId == id) != null)
         {
-            throw new Exception($"Engineer with ID = {id} have tasks and canot be deleted");
+            throw new DalDeletionImpossibleException($"Engineer with ID = {id} have tasks and canot be deleted");
         }
         else
         {
@@ -40,7 +40,7 @@ internal class EngineerImplementation : IEngineer
         return DataSource.Engineers.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool>? filter = null) //stage 2
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool> filter = null) //stage 2
     {
         if (filter == null)
             return DataSource.Engineers.Select(item => item);
@@ -54,9 +54,15 @@ internal class EngineerImplementation : IEngineer
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(element=>element.Id == item.Id);
         if (engineer == null)
         {
-            throw new Exception($"Engineer with ID = {item.Id} does not exist");
+            throw new DalDoesNotExistException($"Engineer with ID = {item.Id} does not exist");
         }
         DataSource.Engineers.Remove(engineer);
         DataSource.Engineers.Add(item);
     }
+
+    public Engineer? Read(Func<Engineer, bool> filter) // stage 2
+    {
+        return DataSource.Engineers.FirstOrDefault(filter);
+    }
 }
+

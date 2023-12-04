@@ -20,11 +20,11 @@ internal class TaskImplementation : ITask
 
         if (newTask == null)
         {
-            throw new Exception($"Task with ID = {id} does not exist");
+            throw new DalDoesNotExistException($"Task with ID = {id} does not exist");
         }
         else if (DataSource.Dependencies.FirstOrDefault(element => element.DependsOnTask == id) != null)
         {
-            throw new Exception($"Task with ID = {id} has dependent task and cannot be deleted");
+            throw new DalDeletionImpossibleException($"Task with ID = {id} has dependent task and cannot be deleted");
         }
         DataSource.Tasks.Remove(newTask);
     }
@@ -48,9 +48,14 @@ internal class TaskImplementation : ITask
         Task? task = DataSource.Tasks.FirstOrDefault(element => element.Id == item.Id);
         if (task == null)
         {
-            throw new Exception($"Task with ID = {item.Id} does not exist");
+            throw new DalDoesNotExistException($"Task with ID = {item.Id} does not exist");
         }
         DataSource.Tasks.Remove(task);
         DataSource.Tasks.Add(item);
+    }
+
+    public Task? Read(Func<Task, bool> filter) // stage 2
+    {
+        return DataSource.Tasks.FirstOrDefault(filter);
     }
 }

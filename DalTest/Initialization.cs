@@ -45,7 +45,7 @@ public static class Initialization
         string _description, _alias;
         DateTime _crearedAt, _forecastDate, _deadLine;
         EngineerExperience _complexityLevel;
-        List<Engineer?> list = s_dal!.Engineer.ReadAll().ToList();
+        List<Engineer?> list =s_dal!.Engineer.ReadAll().ToList();
         int _engineerId;
         for (int i = 0; i < descriptions.Length; i++)
         {

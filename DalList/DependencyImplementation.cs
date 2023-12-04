@@ -19,7 +19,7 @@ internal class DependencyImplementation : IDependency
         Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
 
         if (newDependency == null)
-            throw new Exception($"Dependecy with ID = {id} does not exist");
+            throw new DalDoesNotExistException($"Dependecy with ID = {id} does not exist");
         DataSource.Dependencies.Remove(newDependency);
     }
     public Dependency? Read(int id)
@@ -40,10 +40,15 @@ internal class DependencyImplementation : IDependency
         Dependency? dependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == item.Id);
         if (dependency == null)
         {
-            throw new Exception($"Dependency with ID = {item.Id} does not exist");
+            throw new DalDoesNotExistException($"Dependency with ID = {item.Id} does not exist");
         }
         DataSource.Dependencies.Remove(dependency);
         DataSource.Dependencies.Add(item);
+    }
+
+    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
+    {
+        return DataSource.Dependencies.FirstOrDefault(filter);
     }
 }
     

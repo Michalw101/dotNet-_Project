@@ -6,7 +6,7 @@ using System.Linq;
 
 internal class EngineerImplementation : IEngineer
 {
-    public int Create(Engineer item)
+    public int Create(Engineer item)// Create Engineer
     {
         if (Read(item.Id) != null)
         {
@@ -16,7 +16,7 @@ internal class EngineerImplementation : IEngineer
         return item.Id;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) //Delete Engineer by Id
     {
         Engineer? newEngineer = DataSource.Engineers.FirstOrDefault(element => element.Id == id);
 
@@ -35,12 +35,12 @@ internal class EngineerImplementation : IEngineer
         } 
     }
 
-    public Engineer? Read(int id)
+    public Engineer? Read(int id) //find Engineer by id
     {
         return DataSource.Engineers.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer?, bool> filter = null) //stage 2
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null) //stage 2, return all Engineers by filter
     {
         if (filter == null)
             return DataSource.Engineers.Select(item => item);
@@ -49,7 +49,7 @@ internal class EngineerImplementation : IEngineer
     }
 
 
-    public void Update(Engineer item)
+    public void Update(Engineer item) //update engineer by id
     {
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(element=>element.Id == item.Id);
         if (engineer == null)
@@ -60,7 +60,7 @@ internal class EngineerImplementation : IEngineer
         DataSource.Engineers.Add(item);
     }
 
-    public Engineer? Read(Func<Engineer, bool> filter) // stage 2
+    public Engineer? Read(Func<Engineer, bool> filter) // stage 2, find engineer by filter
     {
         return DataSource.Engineers.FirstOrDefault(filter);
     }

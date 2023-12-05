@@ -6,7 +6,7 @@ internal static class DataSource
     internal static List<DO.Task> Tasks { get; } = new();
     internal static List<DO.Dependency> Dependencies { get; } = new();
 
-    internal static class Config
+    internal static class Config //run- indexes class for Task and Dependency
     {
         internal const int startTaskId = 0;
         private static int nextTaskId = startTaskId;

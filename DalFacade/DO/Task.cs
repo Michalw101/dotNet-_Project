@@ -31,6 +31,9 @@ public record Task
     DateTime? Start = null,
     DateTime? Copmlete = null,
     string? Deliverables = null
-);
+)
+{
+    public bool IsActive { get; set; } = true;
+}
 
 

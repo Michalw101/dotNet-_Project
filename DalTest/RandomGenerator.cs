@@ -3,13 +3,13 @@ using DO;
 
 namespace DalTest;
 
-internal class RandomGenerator
+internal class RandomGenerator //class for generate first value by random
 {
     public const int MIN_ID = 200000000;
     public const int MAX_ID = 400000000;
     private static readonly Random s_rand = new();
 
-    public string GenerateEngineerName()
+    public string GenerateEngineerName() //return random name
     {
         string[] _firstName = new string[] { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter" };
         string[] _lastName = new string[] { "Anderson", "Ashwoon", "Aikin", "Bateman", "Bongard", "Bowers", "Boyd", "Cannon", "Cast", "Deitz", "Dewalt", "Ebner", "Frick", "Hancock", "Haworth", "Hesch", "Hoffman", "Kassing", "Knutson", "Lawless", "Lawicki", "Mccord", "McCormack", "Miller", "Myers", "Nugent", "Ortiz", "Orwig", "Ory", "Paiser", "Pak", "Pettigrew", "Quinn", "Quizoz", "Ramachandran", "Resnick", "Sagar", "Schickowski", "Schiebel", "Sellon", "Severson", "Shaffer", "Solberg", "Soloman", "Sonderling", "Soukup", "Soulis", "Stahl", "Sweeney", "Tandy", "Trebil", "Trusela", "Trussel", "Turco", "Uddin", "Uflan", "Ulrich", "Upson", "Vader", "Vail", "Valente", "Van Zandt", "Vanderpoel", "Ventotla", "Vogal", "Wagle", "Wagner", "Wakefield", "Weinstein", "Weiss", "Woo", "Yang", "Yates", "Yocum", "Zeaser", "Zeller", "Ziegler", "Bauer", "Baxster", "Casal", "Cataldi", "Caswell", "Celedon", "Chambers", "Chapman", "Christensen", "Darnell", "Davidson", "Davis", "DeLorenzo", "Dinkins", "Doran", "Dugelman", "Dugan", "Duffman", "Eastman", "Ferro", "Ferry", "Fletcher", "Fietzer", "Hylan", "Hydinger", "Illingsworth", "Ingram", "Irwin", "Jagtap", "Jenson", "Johnson", "Johnsen", "Jones", "Jurgenson", "Kalleg", "Kaskel", "Keller", "Leisinger", "LePage", "Lewis", "Linde", "Lulloff", "Maki", "Martin", "McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", "Norquist", "Nuttle", "Olson", "Ostrander", "Reamer", "Reardon", "Reyes", "Rice", "Ripka", "Roberts", "Rogers", "Root", "Sandstrom", "Sawyer", "Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan", "Tisler" };
@@ -19,19 +19,19 @@ internal class RandomGenerator
         return results[0] + " " + results[1];
     }
 
-    public int GenerateEngineerID()
+    public int GenerateEngineerID() //return random id
     {
         int id = s_rand.Next(MIN_ID, MAX_ID);
         return id;
     }
 
-    public int GenerateEngineerLevel()
+    public int GenerateEngineerLevel() //return random level
     {
         int level = s_rand.Next(0, 3);
         return level;
     }
 
-    public string[] GenerateTaskDescription()
+    public string[] GenerateTaskDescription() //return an array of tasks
     {
         string[] tasks = {"Design and analyze engineering projects",
   "Prototype, test, and optimize designs",
@@ -55,7 +55,7 @@ internal class RandomGenerator
   "Collaborate on hardware and firmware development" };
         return tasks;
     }
-    public string[] GenerateTaskAlias()
+    public string[] GenerateTaskAlias() //return an aray for aliases
     {
         string[] aliases = {
             "Engineering Design and Analysis",
@@ -93,7 +93,7 @@ internal class RandomGenerator
         };
         return aliases;
     }
-    public double[] GenerateSchedual()
+    public double[] GenerateSchedual() //return an array of schedual
     {
         double[] schedual = {
           3,  // Engineering Design and Analysis
@@ -120,7 +120,7 @@ internal class RandomGenerator
         };
         return schedual;
     }
-    public int EngineerForTask(List<Engineer> engineers, EngineerExperience _level)
+    public int EngineerForTask(List<Engineer> engineers, EngineerExperience _level) //return random engineer's id in matching level
     {
         int i, id;
         do
@@ -131,14 +131,14 @@ internal class RandomGenerator
         while (engineers[i].Level != _level);
         return id;
     }
-    public int GenerateDependentTask(List<DO.Task?> tasks)
+    public int GenerateDependentTask(List<DO.Task?> tasks) //return random task's id
     {
         int i, id;
         i = s_rand.Next(0, tasks.Count());
         id = tasks[i]!.Id;
         return id;
     }
-    public int GenerateDepensOnTask(List<DO.Task?> tasks, int dependentId)
+    public int GenerateDepensOnTask(List<DO.Task?> tasks, int dependentId) //return random task's id
     {
         int i, id;
         i = s_rand.Next(0, dependentId);

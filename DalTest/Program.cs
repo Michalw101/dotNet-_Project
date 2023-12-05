@@ -1,4 +1,7 @@
-﻿using Dal;
+﻿//e0556771499@gmail.com =אפרת פינץ   
+//מייל
+
+using Dal;
 using DalApi;
 using DO;
 using DalList;
@@ -7,12 +10,45 @@ namespace DalTest
 {
     internal class Program
     {
-        //private static IEngineer? s_dalEngineer = new EngineerImplementation();
-        //private static ITask? s_dalTask = new TaskImplementation();
-        //private static IDependency? s_dalDependency = new DependencyImplementation();
-        static readonly IDal s_dal = new Dal.DalList(); 
+        static readonly IDal s_dal = new Dal.DalList(); //stage 2
+        static void Main(string[] args)
+        {
+            try
+            {
+                Initialization.DO(s_dal); //initialization random values for the lists
+                int choice;
+                do
+                {
+                    //main menu
+                    Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Engineers \n 2- Tasks \n 3- Dependencies ");
+                    int.TryParse(Console.ReadLine(), out choice);
+                    switch (choice)
+                    {
+                        case 0:
+                            System.Environment.Exit(0);
+                            break;
+                        case 1:
+                            EngineerMethods();
+                            break;
+                        case 2:
+                            TaskMethods();
+                            break;
+                        case 3:
+                            DependencyMethods();
+                            break;
+                        default:
+                            break;
+                    }                         
+                }
+                while (choice != 0);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
 
-        private static void EngineerMethods()
+        private static void EngineerMethods() // engineer manu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
             int id;
@@ -74,7 +110,7 @@ namespace DalTest
             }
         }
 
-        private static void TaskMethods()
+        private static void TaskMethods() //task menu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
             int id, engineerId;
@@ -144,7 +180,7 @@ namespace DalTest
             }
         }
 
-        private static void DependencyMethods()
+        private static void DependencyMethods() //Dependency manu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
             int id, dependentTask, dependsOnTask;
@@ -194,40 +230,5 @@ namespace DalTest
             }
         }
 
-        static void Main(string[] args)
-        {
-            try
-            {
-                Initialization.DO(s_dal);
-                int choice;
-                do
-                {
-                    Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Engineers \n 2- Tasks \n 3- Dependencies ");
-                    int.TryParse(Console.ReadLine(), out choice);
-                    switch (choice)
-                    {
-                        case 0:
-                            System.Environment.Exit(0);
-                            break;
-                        case 1:
-                            EngineerMethods();
-                            break;
-                        case 2:
-                            TaskMethods();
-                            break;
-                        case 3:
-                            DependencyMethods();
-                            break;
-                        default:
-                            break;
-                    }                         
-                }
-                while (choice != 0);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
     }
 }

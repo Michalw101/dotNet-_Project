@@ -6,7 +6,7 @@ using System.Linq;
 
 internal class TaskImplementation : ITask
 {
-    public int Create(Task item)
+    public int Create(Task item) //Create Task
     {
         int id = DataSource.Config.NextTaskId;
         Task newTask=item with { Id = id };
@@ -14,7 +14,7 @@ internal class TaskImplementation : ITask
         return newTask.Id;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) //Delete Task by id
     {
         Task? newTask = DataSource.Tasks.FirstOrDefault(element => element.Id == id);
 
@@ -26,15 +26,17 @@ internal class TaskImplementation : ITask
         {
             throw new DalDeletionImpossibleException($"Task with ID = {id} has dependent task and cannot be deleted");
         }
-        DataSource.Tasks.Remove(newTask);
+
+        Task task = newTask with { IsActive = false };
+        Update(task);
     }
 
-    public Task? Read(int id)
+    public Task? Read(int id) //find Task by Id
     {
         return DataSource.Tasks.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Task?> ReadAll(Func<Task?, bool>? filter = null) //stage 2
+    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null) //stage 2, return all the Tasks by given filter
     {
         if (filter == null)
             return DataSource.Tasks.Select(item => item);
@@ -43,7 +45,7 @@ internal class TaskImplementation : ITask
     }
 
 
-    public void Update(Task item)
+    public void Update(Task item)//update Task by Id
     {
         Task? task = DataSource.Tasks.FirstOrDefault(element => element.Id == item.Id);
         if (task == null)
@@ -54,7 +56,7 @@ internal class TaskImplementation : ITask
         DataSource.Tasks.Add(item);
     }
 
-    public Task? Read(Func<Task, bool> filter) // stage 2
+    public Task? Read(Func<Task, bool> filter) // stage 2, find Task by filter
     {
         return DataSource.Tasks.FirstOrDefault(filter);
     }

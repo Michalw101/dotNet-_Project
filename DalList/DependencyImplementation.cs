@@ -6,7 +6,8 @@ using System.Linq;
 
 internal class DependencyImplementation : IDependency
 {
-    public int Create(Dependency item)
+    public int Create(Dependency item) //Create Dependency
+
     {
         int id = DataSource.Config.NextDependencyId;
         Dependency newDependency = item with { Id = id };
@@ -14,7 +15,7 @@ internal class DependencyImplementation : IDependency
         return newDependency.Id;
     }
 
-    public void Delete(int id)
+    public void Delete(int id) //Delete Dependency
     {
         Dependency? newDependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
 
@@ -22,12 +23,12 @@ internal class DependencyImplementation : IDependency
             throw new DalDoesNotExistException($"Dependecy with ID = {id} does not exist");
         DataSource.Dependencies.Remove(newDependency);
     }
-    public Dependency? Read(int id)
+    public Dependency? Read(int id) //Find Dependency by Id
     {
         return DataSource.Dependencies.FirstOrDefault(element => element.Id == id);
     }
 
-    public IEnumerable<Dependency?> ReadAll(Func<Dependency?, bool>? filter = null) //stage 2
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null) //stage 2, return all the Dependencies by given filter
     {
         if (filter == null)
             return DataSource.Dependencies.Select(item => item);
@@ -35,7 +36,7 @@ internal class DependencyImplementation : IDependency
             return DataSource.Dependencies.Where(filter);
     }
 
-    public void Update(Dependency item)
+    public void Update(Dependency item) //update Dependency by Id
     {
         Dependency? dependency = DataSource.Dependencies.FirstOrDefault(element => element.Id == item.Id);
         if (dependency == null)
@@ -46,7 +47,7 @@ internal class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(item);
     }
 
-    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
+    public Dependency? Read(Func<Dependency, bool> filter) // stage 2, find Dependency by filter
     {
         return DataSource.Dependencies.FirstOrDefault(filter);
     }

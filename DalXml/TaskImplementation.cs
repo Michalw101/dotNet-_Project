@@ -10,29 +10,33 @@ internal class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
-        XElement? taskList = XMLTools.LoadListFromXMLElement("tasks");
-        int id = XMLTools.GetAndIncreaseNextId("data-config", "NextTaskId");
-        Task newTask = item with { Id = id };
-        taskList.Add(newTask);
-        XMLTools.SaveListToXMLElement(taskList, "tasks");
-        return newTask.Id;
+        List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
+        if (Read(item.Id) != null)
+        {
+            throw new DalAlreadyExistsException($"Task with ID={item.Id} already exists");
+        }
+        list.Add(item);
+        XMLTools.SaveListToXMLSerializer<Task>(list, "tasks");
+        return item.Id;
     }
 
     public void Delete(int id)
     {
-        XElement taskList = XMLTools.LoadListFromXMLElement("tasks");
-        XElement? taskElement = taskList.Elements("task").FirstOrDefault(task => (int)task?.Element("Id")! == id);
-        if (taskElement == null)
+        List<DO.Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
+        Task? newTask = list.FirstOrDefault(element => element.Id == id);
+        if (newTask == null)
         {
             throw new DalDoesNotExistException($"Task with ID = {id} does not exist");
         }
-        else if (XMLTools.LoadListFromXMLElement("dependencies").Elements("dependency").FirstOrDefault(element => (int)element.Element("DependsOnTask")! == id) != null)
+        else if (XMLTools.LoadListFromXMLSerializer<Dependency>("dependencies").FirstOrDefault(element => element.DependsOnTask == id) != null)
         {
             throw new DalDeletionImpossibleException($"Task with ID = {id} has dependent task and cannot be deleted");
         }
-
-        Task task = newTask with { IsActive = false };
-        Update(task);
+        else
+        {
+            Engineer engineer = newEngineer with { IsActive = false };
+            Update(engineer);
+        }
     }
 
     public Task? Read(int id)

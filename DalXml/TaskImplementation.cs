@@ -22,7 +22,7 @@ internal class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        List<DO.Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
+        List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
         Task? newTask = list.FirstOrDefault(element => element.Id == id);
         if (newTask == null)
         {

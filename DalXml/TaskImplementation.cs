@@ -34,28 +34,40 @@ internal class TaskImplementation : ITask
         }
         else
         {
-            Engineer engineer = newEngineer with { IsActive = false };
-            Update(engineer);
+            Task task = newTask with { IsActive = false };
+            Update(task);
         }
     }
 
     public Task? Read(int id)
     {
-        return XMLTools.LoadListFromXMLElement("tasks").Elements("task").FirstOrDefault(element => (int)element.Element("Id") == id);
+        return XMLTools.LoadListFromXMLSerializer<Task>("tasks").FirstOrDefault(element => element.Id == id);
     }
 
     public Task? Read(Func<Task, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement("tasks").Descendants("task").FirstOrDefault(filter);
+        return XMLTools.LoadListFromXMLSerializer<Task>("tasks").FirstOrDefault(filter);
     }
 
     public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        if (filter == null)
+            return XMLTools.LoadListFromXMLSerializer<Task>("tasks").Select(item => item);
+        else
+            return XMLTools.LoadListFromXMLSerializer<Task>("tasks").Where(filter);
     }
 
     public void Update(Task item)
     {
-        throw new NotImplementedException();
+        List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
+
+        Task? task = list.FirstOrDefault(element => element.Id == item.Id);
+        if (task == null)
+        {
+            throw new DalDoesNotExistException($"task with ID = {item.Id} does not exist");
+        }
+        list.Remove(task);
+        list.Add(item);
+        XMLTools.SaveListToXMLSerializer<Task>(list, "tasks");
     }
 }

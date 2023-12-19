@@ -1,3 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfTask>
+<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Task>
+    <Id>0</Id>
+    <Description>Design and analyze engineering projects</Description>
+    <CreatedAt>2023-12-19T19:24:56.8750286+02:00</CreatedAt>
+    <ForecastDate>2024-01-09T19:24:56.8750286+02:00</ForecastDate>
+    <Deadline>2024-01-16T19:24:56.8750286+02:00</Deadline>
+    <EngineerId>393602156</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Engineering Design and Analysis</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>1</Id>
+    <Description>Prototype, test, and optimize designs</Description>
+    <CreatedAt>2023-12-19T19:24:56.9471181+02:00</CreatedAt>
+    <ForecastDate>2024-01-20T07:24:56.9471181+02:00</ForecastDate>
+    <Deadline>2024-01-27T07:24:56.9471181+02:00</Deadline>
+    <EngineerId>363899086</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Prototype Development and Testing</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Description>Manage projects and mitigate risks</Description>
+    <CreatedAt>2023-12-19T19:24:56.9591094+02:00</CreatedAt>
+    <ForecastDate>2024-01-30T19:24:56.9591094+02:00</ForecastDate>
+    <Deadline>2024-02-06T19:24:56.9591094+02:00</Deadline>
+    <EngineerId>258184846</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>Project Planning and Management</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Description>Ensure quality and compliance with standards</Description>
+    <CreatedAt>2023-12-19T19:24:56.9630137+02:00</CreatedAt>
+    <ForecastDate>2024-01-02T19:24:56.9630137+02:00</ForecastDate>
+    <Deadline>2024-01-09T19:24:56.9630137+02:00</Deadline>
+    <EngineerId>345388897</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Quality Assurance and Compliance</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <Description>Create and maintain engineering documentation</Description>
+    <CreatedAt>2023-12-19T19:24:56.9690635+02:00</CreatedAt>
+    <ForecastDate>2024-01-16T19:24:56.9690635+02:00</ForecastDate>
+    <Deadline>2024-01-23T19:24:56.9690635+02:00</Deadline>
+    <EngineerId>378603002</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Documentation and Record-keeping</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <Description>Engage in research and development</Description>
+    <CreatedAt>2023-12-19T19:24:56.9749299+02:00</CreatedAt>
+    <ForecastDate>2024-01-16T19:24:56.9749299+02:00</ForecastDate>
+    <Deadline>2024-01-23T19:24:56.9749299+02:00</Deadline>
+    <EngineerId>284706677</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Research and Development</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <Description>Collaborate and communicate effectively</Description>
+    <CreatedAt>2023-12-19T19:24:56.9806242+02:00</CreatedAt>
+    <ForecastDate>2024-01-20T07:24:56.9806242+02:00</ForecastDate>
+    <Deadline>2024-01-27T07:24:56.9806242+02:00</Deadline>
+    <EngineerId>354085525</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Collaboration and Communication</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Description>Adhere to regulatory requirements</Description>
+    <CreatedAt>2023-12-19T19:24:56.9852961+02:00</CreatedAt>
+    <ForecastDate>2024-01-09T19:24:56.9852961+02:00</ForecastDate>
+    <Deadline>2024-01-16T19:24:56.9852961+02:00</Deadline>
+    <EngineerId>335284723</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>Regulatory Compliance Management</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>8</Id>
+    <Description>Drive continuous process improvement</Description>
+    <CreatedAt>2023-12-19T19:24:56.9917645+02:00</CreatedAt>
+    <ForecastDate>2024-01-30T19:24:56.9917645+02:00</ForecastDate>
+    <Deadline>2024-02-06T19:24:56.9917645+02:00</Deadline>
+    <EngineerId>299146853</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Continuous Process Improvement</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Description>Interact with clients and provide support</Description>
+    <CreatedAt>2023-12-19T19:24:56.9978868+02:00</CreatedAt>
+    <ForecastDate>2023-12-30T07:24:56.9978868+02:00</ForecastDate>
+    <Deadline>2024-01-06T07:24:56.9978868+02:00</Deadline>
+    <EngineerId>378603002</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Client Interaction and Support</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>10</Id>
+    <Description>Design and optimize electrical circuits</Description>
+    <CreatedAt>2023-12-19T19:24:57.0036757+02:00</CreatedAt>
+    <ForecastDate>2024-02-06T19:24:57.0036757+02:00</ForecastDate>
+    <Deadline>2024-02-13T19:24:57.0036757+02:00</Deadline>
+    <EngineerId>261332830</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>Algorithm Development and Implementation</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <Description>Conduct feasibility studies for projects</Description>
+    <CreatedAt>2023-12-19T19:24:57.0102337+02:00</CreatedAt>
+    <ForecastDate>2024-01-20T07:24:57.0102337+02:00</ForecastDate>
+    <Deadline>2024-01-27T07:24:57.0102337+02:00</Deadline>
+    <EngineerId>289564351</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Technical Troubleshooting and Debugging</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>12</Id>
+    <Description>Perform data analysis and interpretation</Description>
+    <CreatedAt>2023-12-19T19:24:57.0162806+02:00</CreatedAt>
+    <ForecastDate>2024-01-09T19:24:57.0162806+02:00</ForecastDate>
+    <Deadline>2024-01-16T19:24:57.0162806+02:00</Deadline>
+    <EngineerId>287195345</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>Code Optimization and Efficiency</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>13</Id>
+    <Description>Develop and implement safety protocols</Description>
+    <CreatedAt>2023-12-19T19:24:57.022027+02:00</CreatedAt>
+    <ForecastDate>2024-01-13T07:24:57.022027+02:00</ForecastDate>
+    <Deadline>2024-01-20T07:24:57.022027+02:00</Deadline>
+    <EngineerId>368125638</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>Cross-functional Collaboration</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <Description>Troubleshoot and repair mechanical systems</Description>
+    <CreatedAt>2023-12-19T19:24:57.0340128+02:00</CreatedAt>
+    <ForecastDate>2024-01-09T19:24:57.0340128+02:00</ForecastDate>
+    <Deadline>2024-01-16T19:24:57.0340128+02:00</Deadline>
+    <EngineerId>284706677</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>System Testing and Validation</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>15</Id>
+    <Description>Manage and coordinate project timelines</Description>
+    <CreatedAt>2023-12-19T19:24:57.0413381+02:00</CreatedAt>
+    <ForecastDate>2024-01-16T19:24:57.0413381+02:00</ForecastDate>
+    <Deadline>2024-01-23T19:24:57.0413381+02:00</Deadline>
+    <EngineerId>370532252</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Database Design and Maintenance</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>16</Id>
+    <Description>Conduct market research for product development</Description>
+    <CreatedAt>2023-12-19T19:24:57.0556058+02:00</CreatedAt>
+    <ForecastDate>2024-01-06T07:24:57.0556058+02:00</ForecastDate>
+    <Deadline>2024-01-13T07:24:57.0556058+02:00</Deadline>
+    <EngineerId>369334557</EngineerId>
+    <ComplexityLevel>Expert</ComplexityLevel>
+    <Alias>User Interface Creation</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>17</Id>
+    <Description>Implement and maintain cybersecurity measures</Description>
+    <CreatedAt>2023-12-19T19:24:57.0620219+02:00</CreatedAt>
+    <ForecastDate>2024-01-30T19:24:57.0620219+02:00</ForecastDate>
+    <Deadline>2024-02-06T19:24:57.0620219+02:00</Deadline>
+    <EngineerId>296158285</EngineerId>
+    <ComplexityLevel>Rookie</ComplexityLevel>
+    <Alias>Emerging Technologies Awareness</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Description>Perform energy efficiency assessments</Description>
+    <CreatedAt>2023-12-19T19:24:57.0693004+02:00</CreatedAt>
+    <ForecastDate>2024-01-20T07:24:57.0693004+02:00</ForecastDate>
+    <Deadline>2024-01-27T07:24:57.0693004+02:00</Deadline>
+    <EngineerId>258184846</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>Technical Documentation Writing and Review</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>19</Id>
+    <Description>Collaborate on hardware and firmware development</Description>
+    <CreatedAt>2023-12-19T19:24:57.0763476+02:00</CreatedAt>
+    <ForecastDate>2024-01-09T19:24:57.0763476+02:00</ForecastDate>
+    <Deadline>2024-01-16T19:24:57.0763476+02:00</Deadline>
+    <EngineerId>239337310</EngineerId>
+    <ComplexityLevel>Junior</ComplexityLevel>
+    <Alias>End-user Training and Support</Alias>
+    <MileStone>false</MileStone>
+    <Start xsi:nil="true" />
+    <Copmlete xsi:nil="true" />
+    <IsActive>true</IsActive>
+  </Task>
 </ArrayOfTask>

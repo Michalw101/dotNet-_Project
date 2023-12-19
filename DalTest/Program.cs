@@ -13,7 +13,7 @@ namespace DalTest
         {
             try
             {
-                Initialization.DO(s_dal); //initialization random values for the lists
+                //Initialization.DO(s_dal); //initialization random values for the lists
                 int choice;
                 do
                 {
@@ -124,7 +124,7 @@ namespace DalTest
                     System.Environment.Exit(0);
                     break;
                 case 1:
-                    Console.WriteLine("Enter task details : id, description, forecastDate, deadline, engineerId, complexityLevel(0 - rookie, 1 - junior, 2 - expert), alias, remarks");
+                    Console.WriteLine("Enter task details : description, forecastDate, deadline, engineerId, complexityLevel(0 - rookie, 1 - junior, 2 - expert), alias, remarks");
                     description = Console.ReadLine()!;
                     createdAt = DateTime.Now;
                     DateTime.TryParse(Console.ReadLine(), out forecastDate);

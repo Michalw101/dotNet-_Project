@@ -9,14 +9,15 @@ internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
+        int id = XMLTools.GetAndIncreaseNextId("data-config", "NextDependencyId");
         XElement list = XMLTools.LoadListFromXMLElement("dependencies");
         XElement dependency = new XElement("dependency",
-            new XElement("id", item.Id),
+            new XElement("id", id),
             new XElement("dependentTask", item.DependentTask),
             new XElement("dependsOnTask", item.DependsOnTask));
         list.Add(dependency);
         XMLTools.SaveListToXMLElement(list, "dependencies");
-        return item.Id;
+        return id;
     }
 
     public void Delete(int id)

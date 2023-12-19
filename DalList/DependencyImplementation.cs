@@ -7,7 +7,6 @@ using System.Linq;
 internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item) //Create Dependency
-
     {
         int id = DataSource.Config.NextDependencyId;
         Dependency newDependency = item with { Id = id };

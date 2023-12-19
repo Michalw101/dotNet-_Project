@@ -34,6 +34,10 @@ public record Task
 )
 {
     public bool IsActive { get; set; } = true;
+
+    public Task() : this(0, string.Empty, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, 0, EngineerExperience.Junior)
+    {
+    }
 }
 
 

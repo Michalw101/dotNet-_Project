@@ -10,14 +10,11 @@ internal class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
+        int id = XMLTools.GetAndIncreaseNextId("data-config", "NextTaskId");
         List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
-        if (Read(item.Id) != null)
-        {
-            throw new DalAlreadyExistsException($"Task with ID={item.Id} already exists");
-        }
-        list.Add(item);
+        list.Add(item with { Id = id });
         XMLTools.SaveListToXMLSerializer<Task>(list, "tasks");
-        return item.Id;
+        return id;
     }
 
     public void Delete(int id)

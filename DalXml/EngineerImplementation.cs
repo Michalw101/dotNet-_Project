@@ -42,7 +42,7 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(Func<Engineer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLSerializer<Engineer>("engineers").FirstOrDefault(element => element.Id == id);
+        return XMLTools.LoadListFromXMLSerializer<Engineer>("engineers").FirstOrDefault(filter);
     }
 
     public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter)

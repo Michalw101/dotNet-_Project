@@ -17,4 +17,9 @@ public record Engineer
 )
 {
     public bool IsActive { get; set; } = true;
+
+    public Engineer() : this(0, string.Empty, string.Empty, EngineerExperience.Junior, null)
+    {
+
+    }
 }

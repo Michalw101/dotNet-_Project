@@ -1,3 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDependency>
+  <dependency>
+    <id>0</id>
+    <dependentTask>15</dependentTask>
+    <dependsOnTask>8</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>1</id>
+    <dependentTask>14</dependentTask>
+    <dependsOnTask>2</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>2</id>
+    <dependentTask>13</dependentTask>
+    <dependsOnTask>2</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>3</id>
+    <dependentTask>12</dependentTask>
+    <dependsOnTask>7</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>4</id>
+    <dependentTask>8</dependentTask>
+    <dependsOnTask>4</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>5</id>
+    <dependentTask>1</dependentTask>
+    <dependsOnTask>0</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>6</id>
+    <dependentTask>0</dependentTask>
+    <dependsOnTask>0</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>7</id>
+    <dependentTask>15</dependentTask>
+    <dependsOnTask>13</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>8</id>
+    <dependentTask>12</dependentTask>
+    <dependsOnTask>0</dependsOnTask>
+  </dependency>
+  <dependency>
+    <id>9</id>
+    <dependentTask>15</dependentTask>
+    <dependsOnTask>6</dependsOnTask>
+  </dependency>
 </ArrayOfDependency>

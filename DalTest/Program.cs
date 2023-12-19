@@ -1,7 +1,4 @@
-﻿//e0556771499@gmail.com =אפרת פינץ   
-//מייל
-
-using Dal;
+﻿using Dal;
 using DalApi;
 using DO;
 using DalList;
@@ -10,7 +7,8 @@ namespace DalTest
 {
     internal class Program
     {
-        static readonly IDal s_dal = new Dal.DalList(); //stage 2
+        //static readonly IDal s_dal = new Dal.DalList(); //stage 2
+        static readonly IDal s_dal = new Dal.DalXml(); //stage 3
         static void Main(string[] args)
         {
             try

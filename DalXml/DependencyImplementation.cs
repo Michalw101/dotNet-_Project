@@ -9,16 +9,18 @@ internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
+        XElement list = XMLTools.LoadListFromXMLElement("dependencies");
         XElement dependency = new XElement("dependency",
             new XElement("id", item.Id),
             new XElement("dependentTask", item.DependentTask),
             new XElement("dependsOnTask", item.DependsOnTask));
+        list.Add(dependency);
+        XMLTools.SaveListToXMLElement(list, "dependencies");
         return item.Id;
     }
 
     public void Delete(int id)
     {
-
         XMLTools.LoadListFromXMLElement("dependencies")
             .Elements()
             .FirstOrDefault((element) => Convert.ToInt32(element.Element("id")?.Value) == id)?
@@ -27,25 +29,48 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-           
-       XElement? dependency = XMLTools.LoadListFromXMLElement("dependencies")
-            .Elements()
-            .FirstOrDefault((element) => Convert.ToInt32(element.Element("id")?.Value) == id);
+        XElement? dependency = XMLTools.LoadListFromXMLElement("dependencies")
+             .Elements()
+             .FirstOrDefault((element) => Convert.ToInt32(element.Element("id")?.Value) == id);
         return new Dependency(Convert.ToInt32(dependency?.Element("id")?.Value), Convert.ToInt32(dependency?.Element("dependentTask")?.Value), Convert.ToInt32(dependency?.Element("dependsOnTask")?.Value));
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
-        throw new NotImplementedException();
+        XElement? dependency = XMLTools.LoadListFromXMLElement("dependencies")
+            .Elements()
+            .FirstOrDefault((element) => filter(new Dependency(
+            Convert.ToInt32(element?.Element("id")?.Value),
+            Convert.ToInt32(element?.Element("dependentTask")?.Value),
+            Convert.ToInt32(element?.Element("dependsOnTask")?.Value)))
+            );
+        return new Dependency(
+            Convert.ToInt32(dependency?.Element("id")?.Value),
+            Convert.ToInt32(dependency?.Element("dependentTask")?.Value),
+            Convert.ToInt32(dependency?.Element("dependsOnTask")?.Value)
+            );
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        IEnumerable<Dependency?> list = XMLTools.LoadListFromXMLElement("dependencies").Elements().Select(element => new Dependency(
+            Convert.ToInt32(element?.Element("id")?.Value),
+            Convert.ToInt32(element?.Element("dependentTask")?.Value),
+            Convert.ToInt32(element?.Element("dependsOnTask")?.Value)
+            ));
+        if (filter == null)
+            return list;
+        else
+            return list.Where(filter!);
     }
 
     public void Update(Dependency item)
     {
-        throw new NotImplementedException();
+        XElement list = XMLTools.LoadListFromXMLElement("dependencies");
+        list.Elements()
+            .FirstOrDefault((element) => Convert.ToInt32(element.Element("id")?.Value) == item.Id)?
+            .Remove();
+        list.Add(new Dependency(item.Id, item.DependentTask , item.DependsOnTask));
+        XMLTools.SaveListToXMLElement(list, "dependencies");
     }
 }

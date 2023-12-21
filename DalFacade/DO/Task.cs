@@ -23,7 +23,7 @@ public record Task
     DateTime CreatedAt,
     DateTime ForecastDate,
     DateTime Deadline,
-    int EngineerId,
+    int EngineerId ,
     EngineerExperience ComplexityLevel,
     string? Alias = null,
     string? Remarks = null,

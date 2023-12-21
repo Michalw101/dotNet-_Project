@@ -2,8 +2,8 @@
 
 public enum EngineerExperience 
 {
-    Rookie,
-    Junior,
-    Expert
+    EXPERT,
+    JUNIOR,
+    ROOKIE
 }
 

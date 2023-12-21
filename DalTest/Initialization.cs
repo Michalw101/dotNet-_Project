@@ -10,9 +10,11 @@ public static class Initialization
     private static RandomGenerator r = new RandomGenerator();
 
     //initialization values for all the lists
-    public static void DO(IDal dal)
+    //public static void DO(IDal dal)//stage 2
+    public static void Do() //stage 4
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stege 2
+        s_dal = Factory.Get; //stage 4
         createEngineers();
         createTasks();
         createDependency();

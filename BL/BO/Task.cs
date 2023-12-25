@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DO;
+namespace BO;
 
-namespace BO
+public class Task
 {
-    internal class Task
-    {
-    }
+    public int Id { get; init; }
+    public string Description { get; set;}
+    public 
+    public EngineerExperience Level { get; set; }
+    public double Cost { get; set; }
+    public string? Alias { get; set; } = null;
+    public Task? task { get; set; } = null;
 }

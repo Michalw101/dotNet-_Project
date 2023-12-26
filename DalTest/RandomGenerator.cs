@@ -30,29 +30,34 @@ internal class RandomGenerator //class for generate first value by random
         int level = s_rand.Next(0, 3);
         return level;
     }
+    public double GenerateEngineerCost() //return random level
+    {
+        double cost = s_rand.Next(35, 50);
+        return cost;
+    }
 
     public string[] GenerateTaskDescription() //return an array of tasks
     {
         string[] tasks = {"Design and analyze engineering projects",
-  "Prototype, test, and optimize designs",
-  "Manage projects and mitigate risks",
-  "Ensure quality and compliance with standards",
-  "Create and maintain engineering documentation",
-  "Engage in research and development",
-  "Collaborate and communicate effectively",
-  "Adhere to regulatory requirements",
-  "Drive continuous process improvement",
-  "Interact with clients and provide support",
-  "Design and optimize electrical circuits",
-  "Conduct feasibility studies for projects",
-  "Perform data analysis and interpretation",
-  "Develop and implement safety protocols",
-  "Troubleshoot and repair mechanical systems",
-  "Manage and coordinate project timelines",
-  "Conduct market research for product development",
-  "Implement and maintain cybersecurity measures",
-  "Perform energy efficiency assessments",
-  "Collaborate on hardware and firmware development" };
+                          "Prototype, test, and optimize designs",
+                          "Manage projects and mitigate risks",
+                          "Ensure quality and compliance with standards",
+                          "Create and maintain engineering documentation",
+                          "Engage in research and development",
+                          "Collaborate and communicate effectively",
+                          "Adhere to regulatory requirements",
+                          "Drive continuous process improvement",
+                          "Interact with clients and provide support",
+                          "Design and optimize electrical circuits",
+                          "Conduct feasibility studies for projects",
+                          "Perform data analysis and interpretation",
+                          "Develop and implement safety protocols",
+                          "Troubleshoot and repair mechanical systems",
+                          "Manage and coordinate project timelines",
+                          "Conduct market research for product development",
+                          "Implement and maintain cybersecurity measures",
+                          "Perform energy efficiency assessments",
+                          "Collaborate on hardware and firmware development" };
         return tasks;
     }
     public string[] GenerateTaskAlias() //return an aray for aliases

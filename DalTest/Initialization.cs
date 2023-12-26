@@ -23,6 +23,7 @@ public static class Initialization
     {
         string[] names = new string[10];
         int _id;
+        double _cost;
         string _email;
         for (int i = 0; i < names.Length; i++)
         {
@@ -39,8 +40,9 @@ public static class Initialization
             else
                 _id = r.GenerateEngineerID();
             _email = _name.Split(" ")[0] + "@exapmle.com";
+            _cost= r.GenerateEngineerCost();
             EngineerExperience _level = (EngineerExperience)r.GenerateEngineerLevel();
-            Engineer newEngineer = new(_id, _name, _email, _level);
+            Engineer newEngineer = new(_id, _name, _email, _level, _cost);
             s_dal!.Engineer!.Create(newEngineer);
         }
     }
@@ -50,21 +52,15 @@ public static class Initialization
         string[] aliases = r.GenerateTaskAlias();
         double[] weeks = r.GenerateSchedual();
         string _description, _alias;
-        DateTime _crearedAt, _forecastDate, _deadLine;
-        EngineerExperience _complexityLevel;
-        List<Engineer?> list =s_dal!.Engineer.ReadAll().ToList();
-        int _engineerId;
+        DateTime _crearedAt, _forecastDate;
         for (int i = 0; i < descriptions.Length; i++)
         {
             _description = descriptions[i];
             _alias = aliases[i];
             _crearedAt = DateTime.Now;
-            _forecastDate = _crearedAt.AddDays(weeks[i] * 7);
-            _deadLine = _forecastDate.AddDays(7);
-            _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
-            _engineerId = r.EngineerForTask(list, _complexityLevel);
-            Task newTask = new(0, _description, _crearedAt, _forecastDate, _deadLine, _engineerId, _complexityLevel, _alias);
-            s_dal.Task!.Create(newTask);
+            _forecastDate = _crearedAt.AddDays(weeks[i] * 7);     
+            Task newTask = new(0,_alias,_description,false,_crearedAt,_forecastDate);
+            s_dal!.Task!.Create(newTask);
         }
     }
   

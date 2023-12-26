@@ -13,12 +13,12 @@ public record Engineer
     string Name,
     string Email,
     EngineerExperience Level,
-    double? Cost = null
+    double Cost 
 )
 {
     public bool IsActive { get; set; } = true;
 
-    public Engineer() : this(0, string.Empty, string.Empty, EngineerExperience.Junior, null)
+    public Engineer() : this(0, string.Empty, string.Empty, EngineerExperience.Junior, 0)
     {
 
     }

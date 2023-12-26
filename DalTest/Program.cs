@@ -15,11 +15,11 @@ namespace DalTest
         {
             try
             {
-                Console.Write("Would you like to create Initial data? (Y/N)"); 
-                string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); 
-                if (ans == "Y") 
-                //Initialization.Do(s_dal); //stage 2
-                Initialization.Do(); //stage 4
+                Console.Write("Would you like to create Initial data? (Y/N)");
+                string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                if (ans == "Y")
+                    //Initialization.Do(s_dal); //stage 2
+                    Initialization.Do(); //stage 4
                 int choice;
                 do
                 {
@@ -42,7 +42,7 @@ namespace DalTest
                             break;
                         default:
                             break;
-                    }                         
+                    }
                 }
                 while (choice != 0);
             }
@@ -56,8 +56,8 @@ namespace DalTest
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
             int id;
-            double? cost;
-            int.TryParse(Console.ReadLine(),out int choice);
+            double cost;
+            int.TryParse(Console.ReadLine(), out int choice);
             string? name, email, input;
             Engineer? engineer;
             EngineerExperience level;
@@ -109,7 +109,7 @@ namespace DalTest
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out id);
                     s_dal.Engineer.Delete(id);
-                    
+
                     break;
             }
         }
@@ -117,29 +117,29 @@ namespace DalTest
         private static void TaskMethods() //task menu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
-            int id, engineerId;
-            DateTime createdAt, forecastDate, deadline;
+            int id;
+            int? engineerId;
+            DateTime createdAt, forecastDate;
+            DateTime? startDate, deadLine;
             int.TryParse(Console.ReadLine(), out int choice);
             string description;
-            string? alias, remarks, input;
+            string? alias, remarks, deliverables, input;
+            bool isMilestone;
+            TimeSpan? requiredEffortTime;
             DO.Task? task;
-            EngineerExperience complexityLevel;
+            EngineerExperience? complexityLevel;
             switch (choice)
             {
                 case 0:
                     System.Environment.Exit(0);
                     break;
                 case 1:
-                    Console.WriteLine("Enter task details : description, forecastDate, deadline, engineerId, complexityLevel(0 - rookie, 1 - junior, 2 - expert), alias, remarks");
+                    Console.WriteLine("Enter task details : alias, description, is milestone");
+                    alias = Console.ReadLine();
                     description = Console.ReadLine()!;
                     createdAt = DateTime.Now;
-                    DateTime.TryParse(Console.ReadLine(), out forecastDate);
-                    DateTime.TryParse(Console.ReadLine(),out deadline);
-                    int.TryParse(Console.ReadLine(),out engineerId);
-                    EngineerExperience.TryParse(Console.ReadLine(), out complexityLevel);
-                    alias = Console.ReadLine();
-                    remarks= Console.ReadLine();
-                    task = new DO.Task(0, description, createdAt,forecastDate,deadline, engineerId, complexityLevel, alias, remarks);
+                    isMilestone = Convert.ToBoolean(Console.ReadLine());
+                    task = new DO.Task(0, alias!, description, isMilestone, createdAt);
                     s_dal.Task.Create(task);
                     break;
                 case 2:
@@ -157,23 +157,28 @@ namespace DalTest
                     int.TryParse(Console.ReadLine(), out id);
                     task = s_dal.Task.Read(id);
                     Console.WriteLine(task);
-                    Console.WriteLine("Enter task details : id, description, forecastDate, deadline, engineerId, complexityLevel(0 - rookie, 1 - junior, 2 - expert), alias, remarks");
+                    Console.WriteLine("Enter task details : alias, description, is milestone, forecastDate, Engineer Id, complexityLevel(0 - rookie, 1 - junior, 2 - expert), required effort time, start date, dead line date, remarks, deliverables");
+                    input = Console.ReadLine();
+                    alias = (input == "") ? task!.Alias : input;
                     input = Console.ReadLine();
                     description = (input == "") ? task!.Description : input!;
                     input = Console.ReadLine();
-                    createdAt = task!.CreatedAt;
-                    forecastDate = (input == "") ? task!.ForecastDate : Convert.ToDateTime(input);
-                    input = Console.ReadLine();
-                    deadline = (input == "") ? task!.Deadline : Convert.ToDateTime(input);
+                    isMilestone = (input == "") ? task!.isMileStone : Convert.ToBoolean(input);
                     input = Console.ReadLine();
                     engineerId = (input == "") ? task!.EngineerId : Convert.ToInt32(input);
                     input = Console.ReadLine();
                     complexityLevel = (input == "") ? task!.ComplexityLevel : (EngineerExperience)Convert.ToInt32(input);
                     input = Console.ReadLine();
-                    alias = (input == "") ? task!.Alias : input;
+                    requiredEffortTime =  (input == "") ? task!.RequiredEffortTime : TimeSpan.FromDays(Convert.ToInt32(input));
+                    input = Console.ReadLine();
+                    startDate = (input == "") ? task!.StartDate : Convert.ToDateTime(input);
+                    input = Console.ReadLine();
+                    deadLine = (input == "") ? task!.DeadlineDate : Convert.ToDateTime(input);
                     input = Console.ReadLine();
                     remarks = (input == "") ? task!.Remarks : input;
-                    task = new DO.Task(id, description, createdAt, forecastDate, deadline, engineerId, complexityLevel, alias, remarks);
+                    input = Console.ReadLine();
+                    deliverables = (input == "") ? task!.Deliverables : input;
+                    task = new DO.Task(id,alias!, description,isMilestone, task!.CreatedAtDate, engineerId, complexityLevel, requiredEffortTime, startDate, task!.ScheduledDate, deadLine, remarks, task!.CompleteDate, deliverables);
                     s_dal.Task.Update(task);
                     break;
                 case 5:

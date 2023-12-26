@@ -5,7 +5,7 @@
 /// <param name="Id">unique ID created automatically</param>
 /// <param name="Description"></param>
 /// <param name="Alias"></param>
-/// <param name="MileStone"></param>
+/// <param name="isMileStone"></param>
 /// <param name="CreatedAt"></param>
 /// <param name="Start"></param>
 /// <param name="ScheduledDate"></param>
@@ -19,23 +19,24 @@
 public record Task
 (
     int Id,
+    string Alias,
     string Description,
-    DateTime CreatedAt,
-    DateTime ForecastDate,
-    DateTime Deadline,
-    int EngineerId ,
-    EngineerExperience ComplexityLevel,
-    string? Alias = null,
+    bool isMileStone,
+    DateTime CreatedAtDate,
+    int? EngineerId = null,
+    EngineerExperience? ComplexityLevel = null,
+    TimeSpan? RequiredEffortTime = null,
+    DateTime? StartDate = null,
+    DateTime? ScheduledDate = null,
+    DateTime? DeadlineDate = null,
     string? Remarks = null,
-    bool MileStone = false,
-    DateTime? Start = null,
-    DateTime? Copmlete = null,
+    DateTime? CompleteDate = null,
     string? Deliverables = null
 )
 {
     public bool IsActive { get; set; } = true;
 
-    public Task() : this(0, string.Empty, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, 0, EngineerExperience.Junior)
+    public Task() : this(0, string.Empty, string.Empty, false, DateTime.MinValue, 0)
     {
     }
 }

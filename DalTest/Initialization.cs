@@ -59,7 +59,7 @@ public static class Initialization
             _alias = aliases[i];
             _crearedAt = DateTime.Now;
             _forecastDate = _crearedAt.AddDays(weeks[i] * 7);     
-            Task newTask = new(0,_alias,_description,false,_crearedAt,_forecastDate);
+            Task newTask = new(0,_alias,_description,false,_crearedAt);
             s_dal!.Task!.Create(newTask);
         }
     }

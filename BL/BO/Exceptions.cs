@@ -33,5 +33,7 @@ public class BlUnvalidException : Exception
 public class BlDeletionImpossibleException : Exception
 {
     public BlDeletionImpossibleException(string? message) : base(message) { }
+    public BlDeletionImpossibleException(string? message, Exception innerException)
+                : base(message, innerException) { }
 }
 

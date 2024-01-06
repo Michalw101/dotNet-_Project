@@ -1,5 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 
 internal class EngineerImplementation : IEngineer
@@ -33,7 +35,7 @@ internal class EngineerImplementation : IEngineer
         if (doEngineer == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         if (
-            (from DO.Task doTask in _dal.Task.ReadAll() 
+            (from DO.Task doTask in _dal.Task.ReadAll()
              select doTask).FirstOrDefault(element => element.EngineerId == id)
          != null)
             throw new BO.BlDeletionImpossibleException($"Engineer with ID = {id} have tasks and canot be deleted");
@@ -64,12 +66,24 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
+    public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        IEnumerable< DO.Engineer?> doEngineers = _dal.Engineer.ReadAll();
-        //(foreach in LINQ)
+        IEnumerable<DO.Task?> tasks = _dal.Task.ReadAll();
+        IEnumerable<BO.Task?> boTasks = 
+        var doEngineers = _dal.Engineer.ReadAll();
+        var boEngineers = doEngineers
+            .Select(doEngineer => new BO.Engineer
+            {
+                Id = doEngineer.Id,
+                Name = doEngineer.Name,
+                Email = doEngineer.Email,
+                Level = (BO.EngineerExperience)doEngineer.Level,
+                Cost = doEngineer.Cost,
+                Task = ( (tasks.FirstOrDefault(task => task?.EngineerId == doEngineer.Id)!.Id, )
 
-
+            }) 
+            .ToList();
+        return boEngineers;
     }
 
     public void Update(BO.Engineer item)

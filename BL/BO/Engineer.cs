@@ -9,6 +9,6 @@ public class Engineer
     public required string Email { get; set; }
     public EngineerExperience Level { get; set; }
     public double Cost { get; set; }
-    public Task? task { get; set; } = null;
+    public Task? Task { get; set; } = null;
 
 }

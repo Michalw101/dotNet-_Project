@@ -17,7 +17,6 @@ internal class TaskImplementation : ITask
     public void Delete(int id) //Delete Task by id
     {
         Task? newTask = DataSource.Tasks.FirstOrDefault(element => element.Id == id);
-
         if (newTask == null)
         {
             throw new DalDoesNotExistException($"Task with ID = {id} does not exist");
@@ -26,7 +25,6 @@ internal class TaskImplementation : ITask
         {
             throw new DalDeletionImpossibleException($"Task with ID = {id} has dependent task and cannot be deleted");
         }
-
         Task task = newTask with { IsActive = false };
         Update(task);
     }

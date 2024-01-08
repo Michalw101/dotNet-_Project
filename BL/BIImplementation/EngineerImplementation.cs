@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using DO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -43,7 +44,7 @@ internal class EngineerImplementation : IEngineer
         {
             _dal.Task.Delete(id);
         }
-        catch (DO.DalAlreadyExistsException ex)
+        catch (DalAlreadyExistsException ex)
         {
             throw new BO.BlDeletionImpossibleException($"Engineer with ID = {id} have canot be deleted", ex);
         }
@@ -69,26 +70,40 @@ internal class EngineerImplementation : IEngineer
     public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
         IEnumerable<DO.Task?> tasks = _dal.Task.ReadAll();
-        IEnumerable<BO.Task?> boTasks = 
+        //IEnumerable<BO.Task?> boTasks = 
         var doEngineers = _dal.Engineer.ReadAll();
         var boEngineers = doEngineers
             .Select(doEngineer => new BO.Engineer
             {
-                Id = doEngineer.Id,
+                Id = doEngineer!.Id,
                 Name = doEngineer.Name,
                 Email = doEngineer.Email,
                 Level = (BO.EngineerExperience)doEngineer.Level,
                 Cost = doEngineer.Cost,
-                Task = ( (tasks.FirstOrDefault(task => task?.EngineerId == doEngineer.Id)!.Id, )
+                Task = null
 
-            }) 
+            })
             .ToList();
         return boEngineers;
     }
 
     public void Update(BO.Engineer item)
     {
-        throw new NotImplementedException();
+        DO.Engineer? doEngineer = new DO.Engineer(
+            item.Id,
+            item.Name,
+            item.Email,
+            (DO.EngineerExperience)item.Level,
+            item.Cost);
+        try
+        {
+            _dal.Engineer.Update(doEngineer);
+        }
+        catch(DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Engineer with ID = {item.Id} does not exist", ex);
+
+        }
     }
 }
 

@@ -117,7 +117,7 @@ namespace DalTest
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
             int id;
             int? engineerId;
-            DateTime createdAt, forecastDate;
+            DateTime createdAt;
             DateTime? startDate, deadLine;
             int.TryParse(Console.ReadLine(), out int choice);
             string description;

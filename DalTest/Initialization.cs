@@ -15,11 +15,11 @@ public static class Initialization
     {
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stege 2
         s_dal = Factory.Get; //stage 4
-        createEngineers();
-        createTasks();
-        createDependency();
+        CreateEngineers();
+        CreateTasks();
+        CreateDependency();
     }
-    public static void createEngineers() 
+    public static void CreateEngineers() 
     {
         string[] names = new string[10];
         int _id;
@@ -46,7 +46,7 @@ public static class Initialization
             s_dal!.Engineer!.Create(newEngineer);
         }
     }
-    public static void createTasks()
+    public static void CreateTasks()
     {
         string[] descriptions = r.GenerateTaskDescription();
         string[] aliases = r.GenerateTaskAlias();
@@ -64,7 +64,7 @@ public static class Initialization
         }
     }
   
-    public static void createDependency()
+    public static void CreateDependency()
     {
         List<Task?> list = s_dal!.Task.ReadAll().ToList();
         for (int i = 0; i < 10; i++)

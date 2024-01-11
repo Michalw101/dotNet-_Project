@@ -25,5 +25,15 @@ namespace PL
         {
             new EngineerListWindow().Show();
         }
+        private void btnInitalization_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to initialization?",
+                    "Initalization",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                DalTest.Initialization.Do();
+            }
+        }
     }
 }

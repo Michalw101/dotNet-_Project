@@ -2,9 +2,12 @@
 
 public enum EngineerExperience
 {
-    EXPERT,
-    JUNIOR,
-    ROOKIE
+    Beginner,
+    AdvancedBeginner,
+    Intermediate,
+    Advanced,
+    Expert,
+    None
 }
 public enum Status
 {

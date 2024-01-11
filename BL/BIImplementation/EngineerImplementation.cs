@@ -69,16 +69,23 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        return (from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
-                select new BO.Engineer
-                {
-                    Id = doEngineer!.Id,
-                    Name = doEngineer.Name,
-                    Email = doEngineer.Email,
-                    Level = (BO.EngineerExperience)doEngineer.Level,
-                    Cost = doEngineer.Cost,
-                    Task = null
-                });
+        IEnumerable<BO.Engineer?> query = from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
+                    select new BO.Engineer
+                    {
+                        Id = doEngineer!.Id,
+                        Name = doEngineer.Name,
+                        Email = doEngineer.Email,
+                        Level = (BO.EngineerExperience)doEngineer.Level,
+                        Cost = doEngineer.Cost,
+                        Task = null
+                    };
+
+        if (filter != null)
+        {
+            query = query.Where(e => filter(e!));
+        }
+
+        return query;
     }
 
     public void Update(BO.Engineer item)

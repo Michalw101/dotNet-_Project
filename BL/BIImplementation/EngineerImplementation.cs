@@ -42,7 +42,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BlDeletionImpossibleException($"Engineer with ID = {id} have tasks and canot be deleted");
         try
         {
-            _dal.Task.Delete(id);
+            _dal.Engineer.Delete(id);
         }
         catch (DalAlreadyExistsException ex)
         {

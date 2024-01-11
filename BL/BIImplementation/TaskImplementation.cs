@@ -8,18 +8,23 @@ internal class TaskImplementation : ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public int Create(BO.Task item)
     {
+        bool isMilestone = false;
+        // בדיקת תקינות
+        if (item.Dependencies != null)
+        {
+            isMilestone = true;
+            var listDep = from BO.TaskInList dependency in item.Dependencies!
+                          select new DO.Dependency(0, item.Id, dependency.Id);
+            listDep.Select(dep => _dal.Dependency.Create(dep));
+        }
+        TimeSpan requiredEffortTime = new TimeSpan(Convert.ToInt32(item.DeadlineDate - item.StartDate));
         DO.Task doTask = new DO.Task
-        (item.Id, item.Description, item.Alias, false, item.CreatedAtDate);
-        try
-        {
-            int idTask = _dal.Task.Create(doTask);
-            return idTask;
-        }
-        catch (DO.DalAlreadyExistsException ex)
-        {
-            throw new BO.BlAlreadyExistsException($"Task with ID={item.Id} already exists", ex);
-        }
-
+               (0, item.Alias, item.Description, isMilestone, item.CreatedAtDate, item.Engineer?.Id,
+               (DO.EngineerExperience?)item.ComplexityLevel, requiredEffortTime,
+               item.StartDate, item.ScheduledStartDate, item.DeadlineDate,
+               item.Remarks, item.CompleteDate, item.Deliverables);
+        _dal.Task.Create(doTask);
+        return item.Id;
     }
 
     public void Delete(int id)
@@ -49,16 +54,16 @@ internal class TaskImplementation : ITask
     public IEnumerable<BO.Task?> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         IEnumerable<BO.Task?> query = from DO.Task doTask in _dal.Task.ReadAll()
-                                          select new BO.Task
-                                          {
-                                              Id = doTask!.Id,
-                                              Description = doTask.Description,
-                                              Alias = doTask.Alias,
-                                              CreatedAtDate = doTask.CreatedAtDate,
-                                              Status = BO.Status.Scheduled,
-                                              Milestone = new BO.MilestoneInTask {Id = 0,Alias = "aa" },
-                                              ComplexityLevel = (BO.EngineerExperience?)doTask.ComplexityLevel
-                                          };
+                                      select new BO.Task
+                                      {
+                                          Id = doTask!.Id,
+                                          Description = doTask.Description,
+                                          Alias = doTask.Alias,
+                                          CreatedAtDate = doTask.CreatedAtDate,
+                                          Status = BO.Status.Scheduled,
+                                          Milestone = new BO.MilestoneInTask { Id = 0, Alias = "aa" },
+                                          ComplexityLevel = (BO.EngineerExperience?)doTask.ComplexityLevel
+                                      };
 
 
 

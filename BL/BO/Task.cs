@@ -9,6 +9,7 @@ public class Task
     public DateTime CreatedAtDate { get; init; }
     public Status? Status { get; set; } = null;
     public MilestoneInTask? Milestone { get; set; } = null;
+    public List<BO.TaskInList>? Dependencies { get; set; } = null;
     public EngineerExperience? ComplexityLevel { get; set; } = null;
     public DateTime? BaselineStartDate { get; set; } = null;
     public DateTime? StartDate { get; set; } = null;
@@ -17,6 +18,7 @@ public class Task
     public DateTime? DeadlineDate { get; set; } = null;
     public DateTime? CompleteDate { get; set; } = null;
     public string? Deliverables { get; set; } = null;
-    public string? remarks { get; set; } = null;
+    public string? Remarks { get; set; } = null;
     public Engineer? Engineer { get; set; } = null;
+    public override string ToString() => this.ToStringProperty();
 }

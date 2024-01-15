@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DalTest;
 using DO;
+using BO;
 
 namespace BITest
 {
@@ -19,7 +20,7 @@ namespace BITest
                 do
                 {
                     //main menu
-                    Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Engineers \n 2- Tasks \n 3- Dependencies ");
+                    Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Engineers \n 2- Tasks \n 3- Create schedule");
                     int.TryParse(Console.ReadLine(), out choice);
                     switch (choice)
                     {
@@ -40,40 +41,57 @@ namespace BITest
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
             }
         }
 
+
+        /// <summary>
+        /// Function that resposible to activate the engineer's functions such as read and so on.
+        /// </summary>
+        /// <exception cref="BlNullPropertyException"></exception>
+        /// <exception cref="BlUnvalidException"></exception>
         private static void EngineerMethods() // engineer manu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
-            int id;
-            double cost;
             int.TryParse(Console.ReadLine(), out int choice);
-            string? name, email, input;
+            int _id, _level;
+            string _name, _email;
+            double _cost;
             BO.Engineer? engineer;
-            BO.Task? task;
-                ;
-            EngineerExperience level;
             switch (choice)
             {
                 case 0:
                     System.Environment.Exit(0);
                     break;
                 case 1:
-                    Console.WriteLine("Enter engineer details : id, name, email, level(0 - rookie, 1 - junior, 2 - expert), cost");
-                    int.TryParse(Console.ReadLine(), out id);
-                    name = Console.ReadLine();
-                    email = Console.ReadLine();
-                    EngineerExperience.TryParse(Console.ReadLine(), out level);
-                    cost = Convert.ToDouble(Console.ReadLine());
-                    //engineer = new (id,name,email,level,cost,task);
-                    //s_bl.Engineer.Create(engineer);
+                    Console.WriteLine("Enter engineer's details:");
+                    Console.WriteLine("Enter engineer's ID:");
+                    _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    Console.WriteLine("Enter engineer's name:");
+                    _name = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a name"));
+                    Console.WriteLine("Enter engineer's email:");
+                    _email = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an email"));
+                    Console.WriteLine("Enter engineer's level { 0-Beginner, 1-AdvancedBeginner, 2-Intermediate, 3-Advanced, 4-Expert }:");
+                    _level = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a level"));
+                    Console.WriteLine("Enter engineer's cost:");
+                    _cost = double.Parse(Console.ReadLine()!);
+                    engineer = new BO.Engineer()
+                    {
+                        Id = _id,
+                        Name = _name,
+                        Email = _email,
+                        Level = (BO.EngineerExperience)_level,
+                        Cost = _cost
+                    };
+                    s_bl.Engineer.Create(engineer);
+                    Console.WriteLine("Created successfully");
                     break;
                 case 2:
                     Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    Console.WriteLine(s_bl.Engineer.Read(id));
+                    _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    engineer = s_bl.Engineer?.Read(_id);
+                    Console.WriteLine(engineer);
                     break;
                 case 3:
                     List<BO.Engineer?> list = s_bl.Engineer.ReadAll().ToList();
@@ -82,64 +100,112 @@ namespace BITest
                     break;
                 case 4:
                     Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    engineer = s_bl.Engineer.Read(id);
-                    Console.WriteLine(engineer);
-                    Console.WriteLine("Enter engineer details : id, name, email, level (0 - rookie, 1 - junior, 2 - expert), cost");
-                    input = Console.ReadLine();
-                    id = (input == "") ? engineer!.Id : Convert.ToInt32(input);
-                    input = Console.ReadLine();
-                    name = (input == "") ? engineer!.Name : input;
-                    input = Console.ReadLine();
-                    email = (input == "") ? engineer!.Email : input;
-                    input = Console.ReadLine();
-                    //level = (input == "") ? engineer!.Level : (EngineerExperience)Convert.ToInt32(input);
-                    //input = Console.ReadLine();
-                    //cost = (input == "") ? engineer!.Cost : Convert.ToDouble(input);
-                    //engineer = new Engineer(id, name!, email!, level, cost);
-                    //s_bl.Engineer.Update(engineer);
+                    int.TryParse(Console.ReadLine(), out _id);
+                    //_id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    Console.WriteLine("Enter engineer's name:");
+                    _name = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a name"));
+                    Console.WriteLine("Enter engineer's email:");
+                    _email = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an email"));
+                    Console.WriteLine("Enter engineer's level { 0-Beginner, 1-AdvancedBeginner, 2-Intermediate, 3-Advanced, 4-Expert }:");
+                    _level = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a level"));
+                    Console.WriteLine("Enter engineer's cost:");
+                    _cost = double.Parse(Console.ReadLine()!);
+                    engineer = new BO.Engineer()
+                    {
+                        Id = _id,
+                        Name = _name,
+                        Email = _email,
+                        Level = (BO.EngineerExperience)_level,
+                        Cost = _cost
+                    };
+                    s_bl.Engineer.Update(engineer);
+                    Console.WriteLine("successfully updated");
                     break;
                 case 5:
                     Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    s_bl.Engineer.Delete(id);
-
+                    _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    s_bl.Engineer.Delete(_id);
+                    Console.WriteLine("Deleted successfully");
                     break;
+                default:
+                    throw new BlUnvalidException("Your choice is invalid");
             }
         }
 
+        /// <summary>
+        /// Function that resposible to activate the task's functions such as read and so on.
+        /// </summary>
+        /// <exception cref="BlNullPropertyException"></exception>
+        /// <exception cref="BlUnvalidException"></exception>
         private static void TaskMethods() //task menu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
-            int id;
-            int? engineerId;
-            DateTime createdAt;
-            DateTime? startDate, deadLine;
             int.TryParse(Console.ReadLine(), out int choice);
-            string description;
-            string? alias, remarks, deliverables, input;
-            bool isMilestone;
-            TimeSpan? requiredEffortTime;
+            int _engineerId, _complexityLevel, _id;
+            string _description, _alias, _product, _remarks;
+            DateTime _createdAtDate, _startDate, _forecastDate, _completeDate, _deadlineDate, _scheduledStartDate;
+            TimeSpan _requiredEffortTime;
             BO.Task? task;
-            EngineerExperience? complexityLevel;
             switch (choice)
             {
                 case 0:
                     System.Environment.Exit(0);
                     break;
                 case 1:
-                    Console.WriteLine("Enter task details : alias, description, is milestone");
-                    alias = Console.ReadLine();
-                    description = Console.ReadLine()!;
-                    createdAt = DateTime.Now;
-                    isMilestone = Convert.ToBoolean(Console.ReadLine());
-                    //task = new (0, alias!, description, isMilestone, createdAt);
-                    //s_bl.Task.Create(task);
+                    Console.WriteLine("Enter task's details:");
+                    Console.WriteLine("Enter task's description:");
+                    _description = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a description"));
+                    Console.WriteLine("Enter task's alias:");
+                    _alias = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an alias"));
+                    Console.WriteLine("Enter task's create date:");
+                    _createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter scheduled start date"));
+                    Console.WriteLine("Enter task's scheduled start date:");
+                    _scheduledStartDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter create date"));
+                    Console.WriteLine("Enter the amount of time required to perform the task");
+                    _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter required effort time")));
+                    Console.WriteLine("Enter task's start date:");
+                    _startDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's scheduled date:");
+                    _forecastDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's deadline date:");
+                    _deadlineDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's complete date:");
+                    _completeDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's product:");
+                    _product = Console.ReadLine()!;
+                    Console.WriteLine("Enter task's remarks:");
+                    _remarks = Console.ReadLine()!;
+                    Console.WriteLine("Enter engineer id:");
+                    _engineerId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an engineer id"));
+                    Console.WriteLine("Enter task's complexity level:");
+                    _complexityLevel = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a complexity level"));
+                    //task = new BO.Task()
+                    //{
+                    //    Id = 0,
+                    //    Alias = _alias,
+                    //    Description = _description,
+                    //    CreatedAtDate = _createdAtDate,
+                    //    Status = 0,
+                    //    //dependencies
+                    //    //milstone
+                    //    ScheduledStartDate = _scheduledStartDate,
+                    //    RequiredEffortTime = _requiredEffortTime,
+                    //    StartDate = _startDate,
+                    //    ForecastDate = _forecastDate,
+                    //    DeadlineDate = _deadlineDate,
+                    //    CompleteDate = _completeDate,
+                    //    Product = _product,
+                    //    Remarks = _remarks,
+                    //    //engineer
+                    //    ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
+                    //};
+                    //s_bl.Task?.Create(task);
+                    Console.WriteLine("Created successfully");
                     break;
                 case 2:
                     Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    Console.WriteLine(s_bl.Task.Read(id));
+                    int.TryParse(Console.ReadLine(), out _id);
+                    Console.WriteLine(s_bl.Task.Read(_id));
                     break;
                 case 3:
                     List<BO.Task?> list = s_bl.Task.ReadAll().ToList();
@@ -147,41 +213,72 @@ namespace BITest
                         Console.WriteLine(item);
                     break;
                 case 4:
-                    Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    task = s_bl.Task.Read(id);
-                    Console.WriteLine(task);
-                    Console.WriteLine("Enter task details : alias, description, is milestone, forecastDate, Engineer Id, complexityLevel(0 - rookie, 1 - junior, 2 - expert), required effort time, start date, dead line date, remarks, deliverables");
-                    input = Console.ReadLine();
-                    alias = (input == "") ? task!.Alias : input;
-                    input = Console.ReadLine();
-                    description = (input == "") ? task!.Description : input!;
-                    //input = Console.ReadLine();
-                    //isMilestone = (input == "") ? task!.isMileStone : Convert.ToBoolean(input);
-                    //input = Console.ReadLine();
-                    //engineerId = (input == "") ? task!.EngineerId : Convert.ToInt32(input);
-                    //input = Console.ReadLine();
-                    //complexityLevel = (input == "") ? task!.ComplexityLevel : (EngineerExperience)Convert.ToInt32(input);
-                    //input = Console.ReadLine();
-                    //requiredEffortTime = (input == "") ? task!.RequiredEffortTime : TimeSpan.FromDays(Convert.ToInt32(input));
-                    input = Console.ReadLine();
-                    startDate = (input == "") ? task!.StartDate : Convert.ToDateTime(input);
-                    input = Console.ReadLine();
-                    deadLine = (input == "") ? task!.DeadlineDate : Convert.ToDateTime(input);
-                    input = Console.ReadLine();
-                    remarks = (input == "") ? task!.Remarks : input;
-                    input = Console.ReadLine();
-                    deliverables = (input == "") ? task!.Deliverables : input;
-                    //task = new DO.Task(id, alias!, description, isMilestone, task!.CreatedAtDate, engineerId, complexityLevel, requiredEffortTime, startDate, task!.ScheduledDate, deadLine, remarks, task!.CompleteDate, deliverables);
+                    Console.WriteLine("Enter task's details:");
+                    Console.WriteLine("Enter task's description:");
+                    _description = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a description"));
+                    Console.WriteLine("Enter task's alias:");
+                    _alias = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an alias"));
+                    Console.WriteLine("Enter task's create date:");
+                    _createdAtDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter scheduled start date"));
+                    Console.WriteLine("Enter task's scheduled start date:");
+                    _scheduledStartDate = Convert.ToDateTime(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter create date"));
+                    Console.WriteLine("Enter the amount of time required to perform the task");
+                    _requiredEffortTime = new TimeSpan(int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter required effort time")));
+                    Console.WriteLine("Enter task's start date:");
+                    _startDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's scheduled date:");
+                    _forecastDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's deadline date:");
+                    _deadlineDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's complete date:");
+                    _completeDate = Convert.ToDateTime(Console.ReadLine());
+                    Console.WriteLine("Enter task's product:");
+                    _product = Console.ReadLine()!;
+                    Console.WriteLine("Enter task's remarks:");
+                    _remarks = Console.ReadLine()!;
+                    Console.WriteLine("Enter engineer id:");
+                    _engineerId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an engineer id"));
+                    Console.WriteLine("Enter task's complexity level:");
+                    _complexityLevel = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a complexity level"));
+                    //task = new BO.Task()
+                    //{
+                    //    Id = 0,
+                    //    Alias = _alias,
+                    //    Description = _description,
+                    //    CreatedAtDate = _createdAtDate,
+                    //    Status = 0,
+                    //    //dependencies
+                    //    //milstone
+                    //    ScheduledStartDate = _scheduledStartDate,
+                    //    RequiredEffortTime = _requiredEffortTime,
+                    //    StartDate = _startDate,
+                    //    ForecastDate = _forecastDate,
+                    //    DeadlineDate = _deadlineDate,
+                    //    CompleteDate = _completeDate,
+                    //    Product = _product,
+                    //    Remarks = _remarks,
+                    //    //engineer
+                    //    ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
+                    //};
                     //s_bl.Task.Update(task);
+                    Console.WriteLine("successfully updated");
                     break;
                 case 5:
                     Console.WriteLine("Enter ID");
-                    int.TryParse(Console.ReadLine(), out id);
-                    s_bl.Task.Delete(id);
+                    int.TryParse(Console.ReadLine(), out _id);
+                    s_bl.Task.Delete(_id);
+                    Console.WriteLine("Deleted successfully");
                     break;
+                default:
+                    throw new BlNullPropertyException("your choice is invalid");
             }
         }
-
-    }
+    }  
 }
+
+
+
+
+
+
+

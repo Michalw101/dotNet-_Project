@@ -1,7 +1,4 @@
-﻿using DalApi;
-using DalTest;
-using DO;
-using BO;
+﻿using BO;
 
 namespace BITest
 {
@@ -187,7 +184,7 @@ namespace BITest
                     //    CreatedAtDate = _createdAtDate,
                     //    Status = 0,
                     //    //dependencies
-                    //    //milstone
+                    //    //milestone
                     //    ScheduledStartDate = _scheduledStartDate,
                     //    RequiredEffortTime = _requiredEffortTime,
                     //    StartDate = _startDate,

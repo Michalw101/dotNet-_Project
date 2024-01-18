@@ -29,6 +29,8 @@ namespace PL.Engineer
 
         public static readonly DependencyProperty CurrentEngineer =
             DependencyProperty.Register("Engineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
+
+       
         public EngineerWindow(int Id = 0)
         {
             InitializeComponent();

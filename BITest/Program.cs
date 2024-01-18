@@ -142,7 +142,7 @@ namespace BITest
             string _description, _alias, _product, _remarks;
             DateTime _createdAtDate, _startDate, _forecastDate, _completeDate, _deadlineDate, _scheduledStartDate;
             TimeSpan _requiredEffortTime;
-            BO.Task? task;
+            //BO.Task? task;
             switch (choice)
             {
                 case 0:

@@ -1,5 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using DO;
 using System;
 using System.Collections.Generic;
 
@@ -77,7 +78,30 @@ internal class TaskImplementation : ITask
 
     public void Update(BO.Task item)
     {
-        throw new NotImplementedException();
+        DO.Task? doTask = new DO.Task(
+                   item.Id,
+                   item.Alias,
+                   item.Description,
+                   item.Milestone != null ? true : false,
+                   item.CreatedAtDate,
+                   item.Engineer != null ? item.Engineer.Id : null,
+                   item.ComplexityLevel != null ? (DO.EngineerExperience) item.ComplexityLevel : null,
+                   item.ForecastDate - item.ScheduledStartDate,
+                   item.StartDate,
+                   item.ScheduledStartDate,
+                   item.DeadlineDate,
+                   item.Remarks,
+                   item.CompleteDate,
+                   item.Deliverables);
+        try
+        {
+            _dal.Task.Update(doTask);
+        }
+        catch (DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException($"Task with ID = {item.Id} does not exist", ex);
+
+        }
     }
 }
 

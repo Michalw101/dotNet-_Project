@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace PL;
 
-class Converts : IValueConverter
+class ConvertIdToContent : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -15,4 +15,18 @@ class Converts : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+class ConvertIdToBoolEnable : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0 ? "True" : "False";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 

@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
+
 
 namespace PL.Engineer
 {
@@ -23,54 +11,62 @@ namespace PL.Engineer
     public partial class EngineerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public ObservableCollection<BO.Engineer> EngineerList
-        {
-            get { return (ObservableCollection<BO.Engineer>)GetValue(CurrentEngineer); }
-            set { SetValue(CurrentEngineer, value); }
-        }
-
-        public static readonly DependencyProperty CurrentEngineer =
-            DependencyProperty.Register("Engineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
-
-        public EngineerWindow(int Id = 0)
+        int state = 0;
+        public EngineerWindow(int id = 0)
         {
             InitializeComponent();
-            if (Id == 0) //Create
+            if (id != 0)
             {
-                BO.Engineer? newEngineer = new BO.Engineer()
-                {
-                    Id = 0,
-                    Name = "",
-                    Email = "",
-                    Level = BO.EngineerExperience.None,
-                    Cost = 0
-                };
-                try
-                {
-                    s_bl.Engineer.Create(newEngineer);
-                }
-                catch
-                {
-                    //catch errors
-                }
+                state = 1;
+                CurrentEngineer = new ObservableCollection<BO.Engineer> { s_bl.Engineer.Read(id) };
             }
-            else //Update
+            else
             {
-                try
-                {
-                    s_bl.Engineer.Read(Id);
-                }
-                catch
-                {
-                    //catch errors
-                }
+                state = 0;
+                CurrentEngineer = new ObservableCollection<BO.Engineer> { new BO.Engineer() { Id = 0, Name = "", Email = "", Level = 0, Cost = 0 } };
             }
-
         }
+
+        public ObservableCollection<BO.Engineer> CurrentEngineer
+        {
+            get { return (ObservableCollection<BO.Engineer>)GetValue(CurrentEngineerProperty); }
+            set { SetValue(CurrentEngineerProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentEngineerProperty =
+            DependencyProperty.Register("CurrentEngineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
+
+        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.None;
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            BO.Engineer engineer = CurrentEngineer[0];
+            if (state == 0)
+            {
+                try
+                {
+                    s_bl.Engineer.Create(engineer);
+                    MessageBox.Show("Engineer Added :)");
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    s_bl.Engineer.Update(engineer);
+                    MessageBox.Show("Engineer Updated :)");
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

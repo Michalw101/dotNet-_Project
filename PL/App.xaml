@@ -5,7 +5,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey" />
-        <local:Converts x:Key="ConvertIdToContentKey"/>
+        <local:ConvertIdToContent x:Key="ConvertIdToContentKey"/>
+        <local:ConvertIdToBoolEnable x:Key="ConvertIdToBoolEnableKey"/>
+
     </Application.Resources>
 </Application>
 

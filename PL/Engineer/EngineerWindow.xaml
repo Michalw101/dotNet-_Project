@@ -14,19 +14,17 @@
         <Label Content="Level" HorizontalAlignment="Left" Margin="276,260,0,0" VerticalAlignment="Top"/>
         <Label Content="Cost" HorizontalAlignment="Left" Margin="276,332,0,0" VerticalAlignment="Top"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-           Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+           Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-          Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+          Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-          Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+          Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         <ComboBox  HorizontalAlignment="Left" Margin="400,262,0,0" 
         ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-        SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
-        ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
+        SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-          Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
-        HorizontalAlignment="Center" Margin="0,388,0,0" VerticalAlignment="Top" Padding="5" 
-        Click="btnAddUpdate_Click" Height="21" Width="88"/>
+          Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"
+        HorizontalAlignment="Center" Margin="0,388,0,0" VerticalAlignment="Top" Padding="5" Click="btnAddUpdate_Click" Height="21" Width="88"/>
     </Grid>
 </Window>

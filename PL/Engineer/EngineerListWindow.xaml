@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
+    
     <!--external grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
 
             </Grid>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}">
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="BtnUpdateEngineer_Click">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

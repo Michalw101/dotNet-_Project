@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace PL;
 
-class ConvertIdToContent : IValueConverter
+class Converts : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

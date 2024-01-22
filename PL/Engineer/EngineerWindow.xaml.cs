@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL.Engineer
 {
@@ -30,17 +32,45 @@ namespace PL.Engineer
         public static readonly DependencyProperty CurrentEngineer =
             DependencyProperty.Register("Engineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
 
-       
         public EngineerWindow(int Id = 0)
         {
             InitializeComponent();
-            if(Id == 0)
+            if (Id == 0) //Create
             {
-                //  יש לייצר אוביקט חדש   עם ערכים ריקים או ערכיברירת מחדל, לכל תכונה של האובייקט
+                BO.Engineer? newEngineer = new BO.Engineer()
+                {
+                    Id = 0,
+                    Name = "",
+                    Email = "",
+                    Level = BO.EngineerExperience.None,
+                    Cost = 0
+                };
+                try
+                {
+                    s_bl.Engineer.Create(newEngineer);
+                }
+                catch
+                {
+                    //catch errors
+                }
             }
-            else
-                s_bl.Engineer.Read(Id);
-            
+            else //Update
+            {
+                try
+                {
+                    s_bl.Engineer.Read(Id);
+                }
+                catch
+                {
+                    //catch errors
+                }
+            }
+
+        }
+
+        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

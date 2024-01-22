@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
-           	 DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <!--DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">-->
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Grid>
         <Label Content="Id" HorizontalAlignment="Left" Margin="276,65,0,0" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="276,130,0,0" VerticalAlignment="Top"/>
@@ -15,7 +14,7 @@
         <Label Content="Level" HorizontalAlignment="Left" Margin="276,260,0,0" VerticalAlignment="Top"/>
         <Label Content="Cost" HorizontalAlignment="Left" Margin="276,332,0,0" VerticalAlignment="Top"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                  Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+           Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
           Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
@@ -26,6 +25,8 @@
         ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
         <TextBox  HorizontalAlignment="Left" Margin="400,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
           Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+        HorizontalAlignment="Center" Margin="0,388,0,0" VerticalAlignment="Top" Padding="5" 
+        Click="btnAddUpdate_Click" Height="21" Width="88"/>
     </Grid>
 </Window>

@@ -34,8 +34,6 @@ namespace PL.Engineer
         public EngineerListWindow()
         {
             InitializeComponent();
-            var temp = s_bl?.Engineer.ReadAll();
-            EngineerList = temp == null ? new() : new(temp!);
         }
 
         private void cbEngineerExperienceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,6 +52,12 @@ namespace PL.Engineer
         {
             BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
             new EngineerWindow(engineer!.Id).ShowDialog();
+        }
+
+        private void WindowActivated(object sender, EventArgs e)
+        {
+            var temp = s_bl?.Engineer.ReadAll();
+            EngineerList = temp == null ? new() : new(temp!);
         }
     }
 }

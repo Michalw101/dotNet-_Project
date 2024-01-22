@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Activated="WindowActivated">
     
     <!--external grid-->
     <Grid>
@@ -38,6 +39,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAddEngineer_Click" Margin="0,438,0,90" Grid.Row="1" RenderTransformOrigin="0.582,-0.521"/>
+        <Button Content="Add" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAddEngineer_Click" Margin="0,416,0,112" Grid.Row="1" RenderTransformOrigin="0.582,-0.521"/>
     </Grid>
 </Window>

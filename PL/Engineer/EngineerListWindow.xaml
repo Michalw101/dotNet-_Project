@@ -7,38 +7,122 @@
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Activated="WindowActivated">
-    
+        Activated="WindowActivated"
+        ResizeMode="NoResize"
+        Background="#181735">
+
     <!--external grid-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid>
-            <!--Internal, Upper Grid-->
-            <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Engineer Experience:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
+                  SelectedValue="{Binding engineerExperience, Mode=TwoWay}" SelectionChanged="cbEngineerExperienceSelector_SelectionChanged"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+            </ComboBox>
+        </Grid>
+
+
+        <!--</Grid>-->
+        <ScrollViewer Grid.Row="1">
+            <ScrollViewer.Template>
+        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Select:" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
-                          SelectedValue="{Binding engineerExperience, Mode=TwoWay}" SelectionChanged="cbEngineerExperienceSelector_SelectionChanged"
-                    Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
-
-                </ComboBox>
-
+                <ScrollBar x:Name="PART_VerticalScrollBar"
+                           Grid.Column="0"
+                           Value="{TemplateBinding VerticalOffset}"
+                           Maximum="{TemplateBinding ScrollableHeight}"
+                           ViewportSize="{TemplateBinding ViewportHeight}"
+                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                           Orientation="Vertical"/>
+                <Grid Grid.Column="1">
+                    <ScrollContentPresenter CanContentScroll="{TemplateBinding CanContentScroll}" />
+                </Grid>
             </Grid>
+        </ControlTemplate>
+    </ScrollViewer.Template>
+            <StackPanel>
+                <TextBlock Text="Engineer List" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White"/>
+                <ListView Background="#181735" Foreground="White" Margin="5"  Grid.Column="0" MouseDoubleClick="BtnUpdateEngineer_Click" ItemsSource="{Binding EngineerList}"  BorderBrush="{x:Null}" FontFamily="Calibri">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Setter Property="Foreground" Value="#181735"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+            
+        </ScrollViewer>
+        
+        <Button Grid.Column="1"
+                Content="Add Engineer"
+                HorizontalAlignment="Left"
+                Click="BtnAddEngineer_Click"
+                Margin="60,469,0,59"
+                Grid.Row="1"
+                RenderTransformOrigin="0.582,-0.521"
+                Foreground="White">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#fe6584"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="#ff4c70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Grid Grid.Column="1" Margin="160,-365,-610,85" Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50"/>
+            </Grid.RenderTransform>
+            <StackPanel Orientation="Horizontal" Margin="-350,250,-255,-250">
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="BtnUpdateEngineer_Click">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Add" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAddEngineer_Click" Margin="0,416,0,112" Grid.Row="1" RenderTransformOrigin="0.582,-0.521"/>
     </Grid>
 </Window>

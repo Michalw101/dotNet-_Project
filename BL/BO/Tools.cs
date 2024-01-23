@@ -8,7 +8,7 @@ public static class Tools
         string str = "";
         foreach (var property in prop)
         {
-            str += property.Name + ":" + property.GetValue(p);
+            str += property.Name + " : " + property.GetValue(p) + "\n";
         }
         return str;
     }

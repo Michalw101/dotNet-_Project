@@ -98,11 +98,12 @@ namespace BITest
                 case 4:
                     Console.WriteLine("Enter ID");
                     int.TryParse(Console.ReadLine(), out _id);
-                    //_id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    _id = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an id"));
+                    engineer = s_bl.Engineer?.Read(_id);
                     Console.WriteLine("Enter engineer's name:");
-                    _name = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a name"));
+                    _name = (Console.ReadLine() ?? engineer!.Name);
                     Console.WriteLine("Enter engineer's email:");
-                    _email = (Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an email"));
+                    _email = (Console.ReadLine() ?? engineer!.Email);
                     Console.WriteLine("Enter engineer's level { 0-Beginner, 1-AdvancedBeginner, 2-Intermediate, 3-Advanced, 4-Expert }:");
                     _level = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a level"));
                     Console.WriteLine("Enter engineer's cost:");

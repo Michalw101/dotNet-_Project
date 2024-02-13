@@ -1,4 +1,5 @@
 ﻿using PL.Engineer;
+using PL.Task;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,10 @@ namespace PL
         private void btnEnginner_Clicked(object sender, RoutedEventArgs e)
         {
             new EngineerListWindow().Show();
+        }
+        private void btnTask_Clicked(object sender, RoutedEventArgs e)
+        {
+            new TaskListWindow().Show();
         }
         private void btnInitalization_Clicked(object sender, RoutedEventArgs e)
         {

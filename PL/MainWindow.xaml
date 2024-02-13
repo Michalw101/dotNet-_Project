@@ -67,6 +67,32 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <Button Content="Handle Tasks"
+        Foreground="White"
+        HorizontalAlignment="Left"
+        Click= "btnTask_Clicked"
+        Grid.Column="0"
+        Margin="79,-19,0,19">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#fe6584"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="#ff4c70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <Grid Grid.Column="1" Margin="160,-365,-610,85" Panel.ZIndex="-1">
             <Grid.RenderTransform>
                 <RotateTransform Angle="50"/>

@@ -1,0 +1,128 @@
+﻿<Window x:Class="PL.Task.TaskListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Task"
+        mc:Ignorable="d"
+        Title="TaskListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Activated="WindowActivated"
+        ResizeMode="NoResize"
+        Background="#181735">
+
+    <!--external grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Select Experience:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
+                  SelectedValue="{Binding EngineerExperience, Mode=TwoWay}" SelectionChanged="cbTaskLevelSelector_SelectionChanged"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+            </ComboBox>
+        </Grid>
+
+
+        <!--</Grid>-->
+        <ScrollViewer Grid.Row="1">
+            <ScrollViewer.Template>
+                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                           Grid.Column="0"
+                           Value="{TemplateBinding VerticalOffset}"
+                           Maximum="{TemplateBinding ScrollableHeight}"
+                           ViewportSize="{TemplateBinding ViewportHeight}"
+                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                           Orientation="Vertical"/>
+                        <Grid Grid.Column="1">
+                            <ScrollContentPresenter CanContentScroll="{TemplateBinding CanContentScroll}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </ScrollViewer.Template>
+            <StackPanel>
+                <TextBlock Text="Task List" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White"/>
+                <ListView Background="#181735" Foreground="White" Margin="5"  Grid.Column="0" MouseDoubleClick="BtnUpdateTask_Click" ItemsSource="{Binding TaskList}"  BorderBrush="{x:Null}" FontFamily="Calibri">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Setter Property="Foreground" Value="#181735"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <Button Grid.Column="1"
+                Content="Add Task"
+                HorizontalAlignment="Left"
+                Click="BtnAddTask_Click"
+                Margin="60,469,0,59"
+                Grid.Row="1"
+                RenderTransformOrigin="0.582,-0.521"
+                Foreground="White">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#fe6584"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="#ff4c70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Grid Grid.Column="1" Margin="160,-365,-610,85" Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50"/>
+            </Grid.RenderTransform>
+            <StackPanel Orientation="Horizontal" Margin="-350,250,-255,-250">
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

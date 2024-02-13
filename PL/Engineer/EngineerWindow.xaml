@@ -6,25 +6,74 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
-        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+        Background="#181735">
     <Grid>
-        <Label Content="Id" HorizontalAlignment="Left" Margin="276,65,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="276,130,0,0" VerticalAlignment="Top"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="276,195,0,0" VerticalAlignment="Top"/>
-        <Label Content="Level" HorizontalAlignment="Left" Margin="276,260,0,0" VerticalAlignment="Top"/>
-        <Label Content="Cost" HorizontalAlignment="Left" Margin="276,332,0,0" VerticalAlignment="Top"/>
-        <TextBox  HorizontalAlignment="Left" Margin="400,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Id" HorizontalAlignment="Left" Margin="40,65,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="40,130,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-4.422,0.094"/>
+        <Label Content="Email" HorizontalAlignment="Left" Margin="40,195,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Level" HorizontalAlignment="Left" Margin="40,268,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Cost"  HorizontalAlignment="Left" Margin="40,332,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <TextBox  HorizontalAlignment="Left" Margin="174,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
            Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"/>
-        <TextBox  HorizontalAlignment="Left" Margin="400,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+        <TextBox  HorizontalAlignment="Left" Margin="174,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
           Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <TextBox  HorizontalAlignment="Left" Margin="400,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+        <TextBox  HorizontalAlignment="Left" Margin="174,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
           Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        <ComboBox  HorizontalAlignment="Left" Margin="400,262,0,0" 
+        <ComboBox  HorizontalAlignment="Left" Margin="174,270,0,0" 
         ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
         SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
-        <TextBox  HorizontalAlignment="Left" Margin="400,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+        <TextBox  HorizontalAlignment="Left" Margin="174,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
           Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+
         <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"
-        HorizontalAlignment="Center" Margin="0,379,0,0" VerticalAlignment="Top" Padding="5" Click="btnAddUpdate_Click" Height="30" Width="120"/>
+                Foreground="White"
+                HorizontalAlignment="Left"
+                Margin="0,358,0,21"
+                Click="btnAddUpdate_Click"
+                Grid.Column="1">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#fe6584"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="#ff4c70"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="100" Height="25" CornerRadius="12" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+
+        <Grid Grid.Column="1" Margin="160,-365,-610,85" Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50"/>
+            </Grid.RenderTransform>
+            <StackPanel Orientation="Horizontal" Margin="-350,250,-255,-250">
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+                <StackPanel>
+                    <Border Width="700" Height="35" Background="#3dddc2" Margin="150,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#fc6568" Margin="0,15,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="35" Background="#383660" Margin="75,15,0,0" CornerRadius="20"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

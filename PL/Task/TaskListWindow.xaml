@@ -28,7 +28,7 @@
             </Grid.ColumnDefinitions>
             <Label Content="Select Experience:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
             <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
-                  SelectedValue="{Binding EngineerExperience, Mode=TwoWay}" SelectionChanged="cbTaskLevelSelector_SelectionChanged"
+                  SelectedValue="{Binding engineerExperience, Mode=TwoWay}" SelectionChanged="cbTaskLevelSelector_SelectionChanged"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
             </ComboBox>
         </Grid>

@@ -34,13 +34,22 @@ namespace BlImplementation
 
             TimeSpan? requiredEffortTime = item.DeadlineDate - item.StartDate;
 
-            DO.Task doTask = new DO.Task
-                   (0, item.Alias, item.Description, isMilestone, item.CreatedAtDate, item.Engineer?.Id,
-                   (DO.EngineerExperience?)item.ComplexityLevel, requiredEffortTime,
-                   item.StartDate, item.ScheduledStartDate, item.DeadlineDate,
-                   item.Remarks, item.CompleteDate, item.Deliverables);
-
-            _dal.Task.Create(doTask);
+            DO.Task doTask = new DO.Task(
+                0,
+                item.Alias,
+                item.Description,
+                isMilestone,
+                item.CreatedAtDate,
+                item.Engineer?.Id,
+                (DO.EngineerExperience?)item.ComplexityLevel,
+                requiredEffortTime,
+                item.StartDate,
+                item.ScheduledStartDate,
+                item.DeadlineDate,
+                item.Remarks,
+                item.CompleteDate,
+                item.Deliverables);
+           _dal.Task.Create(doTask);
 
             return item.Id;
         }
@@ -82,7 +91,7 @@ namespace BlImplementation
 
             if (filter != null)
             {
-                query = query.Where(e => e != null && filter(e));
+                query = query.Where(e => filter(e!));
             }
 
             return query;

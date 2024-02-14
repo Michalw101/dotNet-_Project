@@ -58,7 +58,7 @@
     </ScrollViewer.Template>
             <StackPanel>
                 <TextBlock Text="Engineer List" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White"/>
-                <ListView Background="#181735" Foreground="White" Margin="5"  Grid.Column="0" MouseDoubleClick="BtnUpdateEngineer_Click" ItemsSource="{Binding EngineerList}"  BorderBrush="{x:Null}" FontFamily="Calibri">
+                <ListView Background="#181735" Foreground="White" Margin="5"  Grid.Column="0" MouseDoubleClick="BtnUpdateEngineer_Click" ItemsSource="{Binding EngineerList}"  BorderBrush="{x:Null}" FontFamily="Calibri" Height="516">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn/>

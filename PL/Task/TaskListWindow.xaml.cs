@@ -21,7 +21,9 @@ namespace PL.Task
     public partial class TaskListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+      
         public BO.EngineerExperience engineerExperience { get; set; } = BO.EngineerExperience.None;
+        
         public ObservableCollection<BO.Task> TaskList
         {
             get { return (ObservableCollection<BO.Task>)GetValue(TaskListProperty); }

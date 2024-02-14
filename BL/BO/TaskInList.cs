@@ -15,12 +15,12 @@ namespace BO
         /// <summary>
         /// Gets or sets the description of the task.
         /// </summary>
-        public string Description { get; set; }
+        public required string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the alias of the task.
         /// </summary>
-        public string Alias { get; set; }
+        public required string Alias { get; set; }
 
         /// <summary>
         /// Gets or sets the status of the task.

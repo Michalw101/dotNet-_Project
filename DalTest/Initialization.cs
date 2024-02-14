@@ -4,6 +4,9 @@ using DO;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 
+/// <summary>
+/// Provides methods for initializing data in the system.
+/// </summary>
 public static class Initialization
 {
     private static IDal? s_dal;
@@ -11,6 +14,10 @@ public static class Initialization
 
     //initialization values for all the lists
     //public static void DO(IDal dal)//stage 2
+
+    /// <summary>
+    /// Initializes data for engineers, tasks, and dependencies.
+    /// </summary>
     public static void Do() //stage 4
     {
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stege 2
@@ -19,6 +26,10 @@ public static class Initialization
         CreateTasks();
         CreateDependency();
     }
+
+    /// <summary>
+    /// Creates engineers with random data and adds them to the system.
+    /// </summary>
     public static void CreateEngineers()
     {
         string[] names = new string[50];
@@ -46,6 +57,10 @@ public static class Initialization
             s_dal!.Engineer!.Create(newEngineer);
         }
     }
+
+    /// <summary>
+    /// Creates tasks with random data and adds them to the system.
+    /// </summary>
     public static void CreateTasks()
     {
         string[] descriptions = r.GenerateTaskDescription();
@@ -69,6 +84,9 @@ public static class Initialization
 
     }
 
+    /// <summary>
+    /// Creates dependencies between tasks and adds them to the system.
+    /// </summary>
     public static void CreateDependency()
     {
         List<Task?> list = s_dal!.Task.ReadAll().ToList();

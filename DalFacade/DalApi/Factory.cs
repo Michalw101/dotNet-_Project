@@ -3,8 +3,16 @@ using System.Reflection;
 
 namespace DalApi;
 
+
+/// <summary>
+/// Represents a factory class responsible for creating instances of the DAL (Data Access Layer).
+/// </summary>
 public static class Factory
 {
+
+    /// <summary>
+    /// Gets the instance of the DAL (Data Access Layer).
+    /// </summary>
     public static IDal Get
     {
         get

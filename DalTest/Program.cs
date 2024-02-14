@@ -3,12 +3,19 @@ using DO;
 
 namespace DalTest
 {
+    /// <summary>
+    /// This program provides a command-line interface for interacting with different entities using a data access layer.
+    /// </summary>
     internal class Program
     {
         //static readonly IDal s_dal = new DalList(); //stage 2
         //static readonly IDal s_dal = new DalXml(); //stage 3
         static readonly IDal s_dal = Factory.Get; //stage 4
 
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
         static void Main(string[] args)
         {
             try
@@ -50,6 +57,9 @@ namespace DalTest
             }
         }
 
+        /// <summary>
+        /// Provides a menu for interacting with engineers.
+        /// </summary>
         private static void EngineerMethods() // engineer manu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");
@@ -112,6 +122,9 @@ namespace DalTest
             }
         }
 
+        /// <summary>
+        /// Provides a menu for interacting with tasks.
+        /// </summary>
         private static void TaskMethods() //task menu
         {
             Console.WriteLine("Enter your choice: \n 0- Exit \n 1- Create \n 2- Read \n 3- ReadAll \n 4- Update \n 5- Delete");

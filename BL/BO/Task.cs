@@ -15,12 +15,12 @@ namespace BO
         /// <summary>
         /// Gets or sets the description of the task.
         /// </summary>
-        public string Description { get; set; }
+        public required string  Description { get; set; }
 
         /// <summary>
         /// Gets or sets the alias of the task.
         /// </summary>
-        public string Alias { get; set; }
+        public required string Alias { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the task was created.
@@ -90,7 +90,7 @@ namespace BO
         /// <summary>
         /// Gets or sets the engineer assigned to the task.
         /// </summary>
-        public Engineer? Engineer { get; set; } = null;
+        public EngineerInTask? Engineer { get; set; } = null;
 
         /// <summary>
         /// Returns a string that represents the current object.

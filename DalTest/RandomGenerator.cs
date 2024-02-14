@@ -5,12 +5,19 @@ using System;
 
 namespace DalTest;
 
+/// <summary>
+/// Class for generating random values.
+/// </summary>
 internal class RandomGenerator //class for generate first value by random
 {
     public const int MIN_ID = 200000000;
     public const int MAX_ID = 400000000;
     private static readonly Random s_rand = new();
 
+    /// <summary>
+    /// Generates a random engineer name.
+    /// </summary>
+    /// <returns>A randomly generated engineer name.</returns>
     public string GenerateEngineerName() //return random name
     {
         string[] _firstName = new string[] { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter" };
@@ -21,23 +28,40 @@ internal class RandomGenerator //class for generate first value by random
         return results[0] + " " + results[1];
     }
 
+    /// <summary>
+    /// Generates a random engineer ID.
+    /// </summary>
+    /// <returns>A randomly generated engineer ID.</returns>
     public int GenerateEngineerID() //return random id
     {
         int id = s_rand.Next(MIN_ID, MAX_ID);
         return id;
     }
 
+    /// <summary>
+    /// Generates a random engineer level.
+    /// </summary>
+    /// <returns>A randomly generated engineer level.</returns>
     public int GenerateEngineerLevel() //return random level
     {
         int level = s_rand.Next(0, 3);
         return level;
     }
+
+    /// <summary>
+    /// Generates a random engineer cost.
+    /// </summary>
+    /// <returns>A randomly generated engineer cost.</returns>
     public double GenerateEngineerCost() //return random level
     {
         double cost = s_rand.Next(35, 50);
         return cost;
     }
 
+    /// <summary>
+    /// Generates an array of random task descriptions.
+    /// </summary>
+    /// <returns>An array of randomly generated task descriptions.</returns>
     public string[] GenerateTaskDescription() //return an array of tasks
     {
         string[] tasks = {"Design and analyze engineering projects",
@@ -62,6 +86,11 @@ internal class RandomGenerator //class for generate first value by random
                           "Collaborate on hardware and firmware development" };
         return tasks;
     }
+
+    /// <summary>
+    /// Generates an array of random task aliases.
+    /// </summary>
+    /// <returns>An array of randomly generated task aliases.</returns>
     public string[] GenerateTaskAlias() //return an aray for aliases
     {
         string[] aliases = {
@@ -100,6 +129,11 @@ internal class RandomGenerator //class for generate first value by random
         };
         return aliases;
     }
+
+    // <summary>
+    /// Generates an array of random schedules.
+    /// </summary>
+    /// <returns>An array of randomly generated schedules.</returns>
     public double[] GenerateSchedual() //return an array of schedual
     {
         double[] schedual = {
@@ -127,6 +161,14 @@ internal class RandomGenerator //class for generate first value by random
         };
         return schedual;
     }
+
+    /// <summary>
+    /// Selects an engineer for a task.
+    /// </summary>
+    /// <param name="engineers">The list of engineers.</param>
+    /// <param name="_level">The level of the engineer.</param>
+    /// <param name="tasks">The list of tasks.</param>
+    /// <returns>The ID of the selected engineer.</returns>
     public int EngineerForTask(List<Engineer?> engineers, EngineerExperience _level, List<DO.Task?> tasks)
     {
         int id;
@@ -150,7 +192,11 @@ internal class RandomGenerator //class for generate first value by random
         return id;
     }
 
-
+    /// <summary>
+    /// Generates the ID of a dependent task.
+    /// </summary>
+    /// <param name="tasks">The list of tasks.</param>
+    /// <returns>The ID of the dependent task.</returns>
     public int GenerateDependentTask(List<DO.Task?> tasks) //return random task's id
     {
         int i, id;
@@ -158,6 +204,13 @@ internal class RandomGenerator //class for generate first value by random
         id = tasks[i]!.Id;
         return id;
     }
+
+    /// <summary>
+    /// Generates the ID of a task that another task depends on.
+    /// </summary>
+    /// <param name="tasks">The list of tasks.</param>
+    /// <param name="dependentId">The ID of the dependent task.</param>
+    /// <returns>The ID of the task that another task depends on.</returns>
     public int GenerateDepensOnTask(List<DO.Task?> tasks, int dependentId) //return random task's id
     {
         int i, id;
@@ -165,5 +218,5 @@ internal class RandomGenerator //class for generate first value by random
         id = tasks[i]!.Id;
         return id;
     }
-    
+
 }

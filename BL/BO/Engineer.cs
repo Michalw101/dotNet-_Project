@@ -15,12 +15,12 @@ namespace BO
         /// <summary>
         /// Gets or sets the name of the Engineer.
         /// </summary>
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the email of the Engineer.
         /// </summary>
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the experience level of the Engineer.

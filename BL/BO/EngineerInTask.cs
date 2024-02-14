@@ -15,6 +15,6 @@ namespace BO
         /// <summary>
         /// Gets or sets the name of the Engineer assigned to the Task.
         /// </summary>
-        public string Name { get; set; }
+        public required string Name { get; set; }
     }
 }

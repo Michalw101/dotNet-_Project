@@ -15,7 +15,7 @@ namespace BO
         /// <summary>
         /// Gets or sets the alias of the task.
         /// </summary>
-        public string Alias { get; set; }
+        public required string Alias { get; set; }
 
         /// <summary>
         /// Returns a string that represents the current object.

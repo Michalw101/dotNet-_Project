@@ -1,22 +1,24 @@
 ﻿namespace DO;
+
+
 /// <summary>
-/// Task entity
+/// Task entity represents a task with all its properties.
 /// </summary>
-/// <param name="Id">unique ID created automatically</param>
-/// <param name="Description"></param>
-/// <param name="Alias"></param>
-/// <param name="isMileStone"></param>
-/// <param name="CreatedAt"></param>
-/// <param name="Start"></param>
-/// <param name="ScheduledDate"></param>
-/// <param name="ForecastDate"></param>
-/// <param name="Deadline"></param>
-/// <param name="Copmlete"></param>
-/// <param name="Deliverables"></param>
-/// <param name="Remarks"></param>
-/// <param name="EngineerId"></param>
-/// <param name="ComplexityLevel"></param>
-/// 
+/// <param name="Id">The unique identifier of the task.</param>
+/// <param name="Alias">The alias of the task.</param>
+/// <param name="Description">The description of the task.</param>
+/// <param name="isMileStone">Indicates if the task is a milestone.</param>
+/// <param name="CreatedAtDate">The date and time when the task was created.</param>
+/// <param name="EngineerId">The ID of the engineer assigned to the task (optional).</param>
+/// <param name="ComplexityLevel">The complexity level of the task (optional).</param>
+/// <param name="RequiredEffortTime">The required effort time for the task (optional).</param>
+/// <param name="StartDate">The start date of the task (optional).</param>
+/// <param name="ScheduledDate">The scheduled date of the task (optional).</param>
+/// <param name="DeadlineDate">The deadline date of the task (optional).</param>
+/// <param name="Remarks">Remarks about the task (optional).</param>
+/// <param name="CompleteDate">The completion date of the task (optional).</param>
+/// <param name="Deliverables">The deliverables of the task (optional).</param>
+
 public record Task
 (
     int Id,

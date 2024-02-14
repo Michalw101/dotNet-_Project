@@ -158,7 +158,7 @@ namespace BlImplementation
                 DO.Engineer? DOengineer = _dal.Engineer.Read(Convert.ToInt32(doTask.EngineerId));
                 BOengineer = new BO.EngineerInTask() { Id = DOengineer!.Id, Name = DOengineer.Name };
             }
-               
+
             return new BO.Task()
             {
                 Id = doTask.Id,

@@ -124,7 +124,7 @@ namespace BITest
                         Level = (BO.EngineerExperience)_level,
                         Cost = _cost
                     };
-                    s_bl.Engineer.Update(engineer);
+                    s_bl.Engineer!.Update(engineer);
                     Console.WriteLine("successfully updated");
                     break;
                 case 5:

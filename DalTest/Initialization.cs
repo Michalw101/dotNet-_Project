@@ -51,6 +51,7 @@ public static class Initialization
         string[] descriptions = r.GenerateTaskDescription();
         string[] aliases = r.GenerateTaskAlias();
         double[] weeks = r.GenerateSchedual();
+        EngineerExperience _complexityLevel;
         string _description, _alias;
         DateTime _crearedAt, _forecastDate;
         for (int i = 0; i < descriptions.Length; i++)
@@ -58,8 +59,9 @@ public static class Initialization
             _description = descriptions[i];
             _alias = aliases[i];
             _crearedAt = DateTime.Now;
-            _forecastDate = _crearedAt.AddDays(weeks[i] * 7);     
-            Task newTask = new(0,_alias,_description,false,_crearedAt);
+            _forecastDate = _crearedAt.AddDays(weeks[i] * 7);
+            _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
+            Task newTask = new(0,_alias,_description,false,_crearedAt,0,_complexityLevel);
             s_dal!.Task!.Create(newTask);
         }
     }

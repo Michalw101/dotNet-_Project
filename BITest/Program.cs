@@ -2,9 +2,17 @@
 
 namespace BITest
 {
+    // <summary>
+    /// Main program class.
+    /// </summary>
     internal class Program
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        /// <summary>
+        /// Main method.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
         static void Main(string[] args)
         {
             try
@@ -238,27 +246,6 @@ namespace BITest
                     _engineerId = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter an engineer id"));
                     Console.WriteLine("Enter task's complexity level:");
                     _complexityLevel = int.Parse(Console.ReadLine() ?? throw new BlNullPropertyException("You did not enter a complexity level"));
-                    //task = new BO.Task()
-                    //{
-                    //    Id = 0,
-                    //    Alias = _alias,
-                    //    Description = _description,
-                    //    CreatedAtDate = _createdAtDate,
-                    //    Status = 0,
-                    //    //dependencies
-                    //    //milstone
-                    //    ScheduledStartDate = _scheduledStartDate,
-                    //    RequiredEffortTime = _requiredEffortTime,
-                    //    StartDate = _startDate,
-                    //    ForecastDate = _forecastDate,
-                    //    DeadlineDate = _deadlineDate,
-                    //    CompleteDate = _completeDate,
-                    //    Product = _product,
-                    //    Remarks = _remarks,
-                    //    //engineer
-                    //    ComplexityLevel = (BO.EngineerExperience)_complexityLevel,
-                    //};
-                    //s_bl.Task.Update(task);
                     Console.WriteLine("successfully updated");
                     break;
                 case 5:
@@ -271,7 +258,7 @@ namespace BITest
                     throw new BlNullPropertyException("your choice is invalid");
             }
         }
-    }  
+    }
 }
 
 

@@ -16,5 +16,11 @@ namespace BO
         /// Gets or sets the name of the Engineer assigned to the Task.
         /// </summary>
         public required string Name { get; set; }
+
+        /// <summary>
+        /// Returns a string that represents the current Engineer object.
+        /// </summary>
+        /// <returns>A string representation of the Engineer.</returns>
+        public override string ToString() => this.ToStringProperty();
     }
 }

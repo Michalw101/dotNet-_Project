@@ -21,7 +21,7 @@ public static class Initialization
     }
     public static void CreateEngineers()
     {
-        string[] names = new string[10];
+        string[] names = new string[50];
         int _id;
         double _cost;
         string _email;
@@ -62,7 +62,7 @@ public static class Initialization
             _crearedAt = DateTime.Now;
             _forecastDate = _crearedAt.AddDays(weeks[i] * 7);
             _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
-            _engineerId = r.FindEngineerForTask();
+            _engineerId = r.EngineerForTask(s_dal!.Engineer!.ReadAll().ToList(),_complexityLevel, s_dal!.Task.ReadAll().ToList());
             Task newTask = new(0, _alias, _description, false, _crearedAt, _engineerId, _complexityLevel);
             s_dal!.Task!.Create(newTask);
         }

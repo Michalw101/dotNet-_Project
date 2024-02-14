@@ -1,5 +1,7 @@
 ﻿using DalApi;
 using DO;
+using System.Diagnostics;
+using System;
 
 namespace DalTest;
 
@@ -125,15 +127,24 @@ internal class RandomGenerator //class for generate first value by random
         };
         return schedual;
     }
-    public int EngineerForTask(List<Engineer> engineers, EngineerExperience _level) //return random engineer's id in matching level
+    public int EngineerForTask(List<Engineer?> engineers, EngineerExperience _level, List<DO.Task?> tasks) //return random engineer's id in matching level
     {
         int i, id;
+        bool found = false;
         do
         {
             i = s_rand.Next(0, engineers.Count());
-            id = engineers[i].Id;
+            id = engineers[i]!.Id;
+            foreach (var task in tasks)
+            {
+                if (task!.EngineerId == id)
+                {
+                    found = true;
+                    break;
+                }
+            }
         }
-        while (engineers[i].Level != _level);
+        while (engineers[i]!.Level != _level || found);
         return id;
     }
     public int GenerateDependentTask(List<DO.Task?> tasks) //return random task's id
@@ -150,25 +161,25 @@ internal class RandomGenerator //class for generate first value by random
         id = tasks[i]!.Id;
         return id;
     }
-    public int FindEngineerForTask()
-    {
-        List<Engineer?> engineerList = s_dal!.Engineer!.ReadAll().ToList();
-        List<Task?> taskList = s_dal!.Task.ReadAll().ToList();
-        bool found = false;
-        foreach (var engineer in engineerList)
-        {
-            foreach (var task in taskList)
-            {
-                if (task!.EngineerId == engineer!.Id)
-                {
-                    found = true;
-                    break;
-                }
-                if (!found)
-                    return engineer.Id;
-            }
+    //public int FindEngineerForTask()
+    //{
+    //    List<Engineer?> engineerList = s_dal!.Engineer!.ReadAll().ToList();
+    //    List<Task?> taskList = s_dal!.Task.ReadAll().ToList();
+    //    //bool found = false;
+    //    foreach (var engineer in engineerList)
+    //    {
+    //        foreach (var task in taskList)
+    //        {
+    //            if (task!.EngineerId == engineer!.Id)
+    //            {
+    //                found = true;
+    //                break;
+    //            }
+    //            if (!found)
+    //                return engineer.Id;
+    //        }
 
-        }
+    //    }
 
-    }
+    //}
 }

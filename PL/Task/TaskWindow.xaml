@@ -20,8 +20,8 @@
         <Label Content="Status"  HorizontalAlignment="Left" Margin="40,310,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Milestone"  HorizontalAlignment="Left" Margin="40,370,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Dependencies"  HorizontalAlignment="Left" Margin="40,430,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Complexity Level"  HorizontalAlignment="Left" Margin="40,490,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Baseline Start Date"  HorizontalAlignment="Left" Margin="40,550,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Complexity Level"  HorizontalAlignment="Left" Margin="50,670,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+        <Label Content="Baseline Start Date"  HorizontalAlignment="Left" Margin="50,730,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
         <Label Content="Start Date"  HorizontalAlignment="Left" Margin="40,610,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Scheduled Start Date"  HorizontalAlignment="Left" Margin="40,670,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Forecast Date"  HorizontalAlignment="Left" Margin="40,730,0,0" VerticalAlignment="Top" Foreground="White"/>
@@ -34,25 +34,45 @@
 
 
         <TextBox HorizontalAlignment="Left" Margin="174,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
-         Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"/>
+         Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled="False"/>
         <TextBox HorizontalAlignment="Left" Margin="174,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
          Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         <TextBox HorizontalAlignment="Left" Margin="174,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
          Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         <TextBox HorizontalAlignment="Left" Margin="174,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
-         Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="174,310,0,0" 
+         Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled="False"/>
+        <!--<ComboBox HorizontalAlignment="Left" Margin="174,310,0,0" 
         ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" 
-SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
+        SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>-->
+        <TextBox HorizontalAlignment="Left" Margin="174,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
+         Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" IsEnabled="False"/>
         <TextBox HorizontalAlignment="Left" Margin="174,370,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
          Text="{Binding Milestone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        <TextBox HorizontalAlignment="Left" Margin="174,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
-         Text="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="174,490,0,0" 
-      ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-  SelectedValue="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
-        <DatePicker HorizontalAlignment="Left" Margin="174,550,0,0" VerticalAlignment="Top" Width="120" Background="White"
-         SelectedDate="{Binding BaselineStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+        <!--<TextBox HorizontalAlignment="Left" Margin="174,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
+         Text="{Binding Dependencies, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>-->
+
+        <ListView Background="#181735" Foreground="White" Margin="174,442,106,310"  Grid.Column="0"  ItemsSource="{Binding Dependencies}"  BorderBrush="{x:Null}" FontFamily="Calibri">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="#181735"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <ComboBox HorizontalAlignment="Left" Margin="174,670,0,0" 
+         ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"  
+         SelectedValue="{Binding ComplexityLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <DatePicker HorizontalAlignment="Left" Margin="174,730,0,0" VerticalAlignment="Top" Width="120" Background="White"
+         SelectedDate="{Binding BaselineStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1"/>
         <DatePicker HorizontalAlignment="Left" Margin="174,610,0,0" VerticalAlignment="Top" Width="120" Background="White"
          SelectedDate="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
         <DatePicker HorizontalAlignment="Left" Margin="174,670,0,0" VerticalAlignment="Top" Width="120" Background="White" SelectedDate="{Binding ScheduledStartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
@@ -70,8 +90,8 @@ SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, Valid
         <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"
                 Foreground="White"
                 HorizontalAlignment="Left"
-                Margin="184,513,0,-134"
-                Click="btnAddUpdate_Click" Grid.Column="1">
+                Margin="345,589,0,-210"
+                Click="btnAddUpdate_Click" RenderTransformOrigin="0.508,0.511" Grid.ColumnSpan="2">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="#fe6584"/>

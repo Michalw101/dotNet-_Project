@@ -12,19 +12,19 @@ namespace PL.Task
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         int state;
-        public TaskWindow(int id = 0)
+        public TaskWindow(int id = -1)
         {
             InitializeComponent();
             if (id != -1)
             {
                 state = 1; //update
-                CurrentTask = new ObservableCollection<BO.Task> { s_bl.Task.Read(id) };
+                CurrentTask = new ObservableCollection<BO.Task> { s_bl.Task.Read(id)! };
             }
             else
             {
                 state = 0; //add
                 CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() {
-                Id = -1, Description = "", Alias="", CreatedAtDate = DateTime.Now } };
+                Id = -1, Description = "", Alias="", CreatedAtDate = DateTime.Now, Status=BO.Status.Unscheduled} };
             }
         }
 

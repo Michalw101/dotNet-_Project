@@ -1,39 +1,67 @@
 ﻿using BlApi;
 using BO;
+using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace BlImplementation
 {
     /// <summary>
     /// Implements business logic operations related to tasks.
     /// </summary>
-    internal class TaskImplementation : ITask
+    internal class TaskImplementation : BlApi.ITask
     {
         private DalApi.IDal _dal = DalApi.Factory.Get;
 
         /// <summary>
         /// Creates a new task.
         /// </summary>
-        /// <param name="item">The task to create.</param>
-        /// <returns>The ID of the created task.</returns>
+        /// <param name="item">The task object containing details of the new task.</param>
+        /// <returns>The ID of the newly created task.</returns>
+        /// <exception cref="BO.BlUnvalidException">Thrown when provided task data is invalid.</exception>
+
         public int Create(BO.Task item)
         {
-            bool isMilestone = false;
-
             // Check for validity
+            if (string.IsNullOrEmpty(item.Alias))
+                throw new BO.BlUnvalidException("Alias cannot be empty");
+
             if (item.Dependencies != null)
             {
-                isMilestone = true;
-                var listDep = from BO.TaskInList dependency in item.Dependencies!
-                              select new DO.Dependency(0, item.Id, dependency.Id);
-                listDep.Select(dep => _dal.Dependency.Create(dep));
+                foreach (var dependency in item.Dependencies)
+                {
+                    if (dependency.Id <= 0)
+                        throw new BO.BlUnvalidException("Invalid dependency ID");
+                }
             }
 
-            TimeSpan? requiredEffortTime = item.DeadlineDate - item.StartDate;
+            // Determine if the task is a milestone
+            bool isMilestone = item.Dependencies != null && item.Dependencies.Any();
 
+            // Create dependencies
+            if (isMilestone)
+            {
+                foreach (var dependency in item.Dependencies!)
+                {
+                    DO.Dependency doDependency = new DO.Dependency(0, item.Id, dependency.Id);
+                    _dal.Dependency.Create(doDependency);
+                }
+            }
+
+            TimeSpan? requiredEffortTime = null;
+
+            // Calculate required effort time
+            if (item.StartDate != null && item.DeadlineDate != null)
+            {
+                if (item.StartDate >= item.DeadlineDate)
+                    throw new BO.BlUnvalidException("Start date must be before deadline date");
+                requiredEffortTime = item.DeadlineDate - item.StartDate;
+            }
+
+            // Create the task object
             DO.Task doTask = new DO.Task(
                 0,
                 item.Alias,
@@ -49,10 +77,13 @@ namespace BlImplementation
                 item.Remarks,
                 item.CompleteDate,
                 item.Deliverables);
-           _dal.Task.Create(doTask);
+
+            // Persist the task in the data store
+            _dal.Task.Create(doTask);
 
             return item.Id;
         }
+
 
         /// <summary>
         /// Deletes a task by its ID.
@@ -99,23 +130,60 @@ namespace BlImplementation
 
         private BO.Task MapToBOTask(DO.Task doTask)
         {
+            DO.Task? task = null;
+            IEnumerable<DO.Dependency?> list = _dal.Dependency.ReadAll().Where(dep => dep.DependsOnTask == doTask.Id);
+            List<BO.TaskInList>? dependencies = new List<TaskInList>();
+            foreach (DO.Dependency dep in list)
+            {
+                if (dep != null)
+                {
+                    task = _dal.Task.Read(dep!.DependentTask);
+                    dependencies!.Add(new BO.TaskInList() { Id = task!.Id, Description = task.Description, Alias = task.Alias, Status = CheckStatus(task) });
+                }
+            }
+
+            BO.Engineer? BOengineer = null;
+            if (doTask.EngineerId != 0)
+            {
+                DO.Engineer? DOengineer = _dal.Engineer.Read(Convert.ToInt32(doTask.EngineerId));
+                BOengineer = new BO.Engineer() { Id = DOengineer.Id, Name = DOengineer.Name, Email = DOengineer.Email };
+            }
+                
+
+
             return new BO.Task()
             {
                 Id = doTask.Id,
                 Description = doTask.Description ?? "", // Provide default value if null
                 Alias = doTask.Alias ?? "", // Provide default value if null
                 CreatedAtDate = doTask.CreatedAtDate,
-                Status = Status.Scheduled,
-                Milestone = new BO.MilestoneInTask { Id = 0, Alias = "aa" },
-                ScheduledStartDate = doTask.ScheduledDate ?? DateTime.MinValue, // Provide default value if null
-                StartDate = doTask.StartDate ?? DateTime.MinValue, // Provide default value if null
-                DeadlineDate = doTask.DeadlineDate ?? DateTime.MinValue, // Provide default value if null
-                CompleteDate = doTask.CompleteDate ?? DateTime.MinValue, // Provide default value if null
+                Status = CheckStatus(doTask),
+                Milestone = null,
+                ScheduledStartDate = doTask.ScheduledDate,
+                StartDate = doTask.StartDate,
+                DeadlineDate = doTask.DeadlineDate,
+                CompleteDate = doTask.CompleteDate,
                 Deliverables = doTask.Deliverables ?? "", // Provide default value if null
                 Remarks = doTask.Remarks ?? "", // Provide default value if null
-                ComplexityLevel = (BO.EngineerExperience?)doTask.ComplexityLevel // Provide default value if null
+                ComplexityLevel = (BO.EngineerExperience?)doTask.ComplexityLevel,
+                Dependencies = dependencies,
+                Engineer = BOengineer
             };
         }
+        private Status CheckStatus(DO.Task doTask)
+        {
+            Status status;
+            if (doTask.CompleteDate < DateTime.Now)
+                status = Status.InJeopardy;
+            else if (doTask.ScheduledDate > DateTime.Now || doTask.ScheduledDate == null)
+                status = Status.Unscheduled;
+            else if (doTask.StartDate < DateTime.Now)
+                status = Status.OnTrack;
+            else
+                status = Status.Scheduled;
+            return status;
+        }
+
 
         /// <summary>
         /// Updates an existing task.

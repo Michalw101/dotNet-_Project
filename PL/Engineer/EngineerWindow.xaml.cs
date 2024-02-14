@@ -10,22 +10,39 @@ namespace PL.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
+        /// <summary>
+        /// The business logic instance.
+        /// </summary>
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        int state = 0;
-        public EngineerWindow(int id = 0)
+
+        /// <summary>
+        /// Represents the state of the EngineerWindow.
+        /// </summary>
+        int state;
+
+        /// <summary>
+        /// Initializes a new instance of the EngineerWindow class.
+        /// </summary>
+        /// <param name="id">The ID of the engineer (optional).</param>
+
+        public EngineerWindow(int id = -1)
         {
             InitializeComponent();
-            if (id != 0)
+            if (id != -1)
             {
                 state = 1;
-                CurrentEngineer = new ObservableCollection<BO.Engineer> { s_bl.Engineer.Read(id) };
+                CurrentEngineer = new ObservableCollection<BO.Engineer> { s_bl.Engineer.Read(id)! };
             }
             else
             {
                 state = 0;
-                CurrentEngineer = new ObservableCollection<BO.Engineer> { new BO.Engineer() { Id = 0, Name = "", Email = "", Level = 0, Cost = 0 } };
+                CurrentEngineer = new ObservableCollection<BO.Engineer> { new BO.Engineer() { Id = -1, Name = "", Email = "", Level = 0, Cost = 0 } };
             }
         }
+
+        /// <summary>
+        /// Gets or sets the current engineer being displayed.
+        /// </summary>
 
         public ObservableCollection<BO.Engineer> CurrentEngineer
         {
@@ -33,11 +50,23 @@ namespace PL.Engineer
             set { SetValue(CurrentEngineerProperty, value); }
         }
 
+        /// <summary>
+        /// The dependency property for CurrentEngineer.
+        /// </summary>
+
         public static readonly DependencyProperty CurrentEngineerProperty =
             DependencyProperty.Register("CurrentEngineer", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the experience of the engineer.
+        /// </summary>
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.None;
 
+        /// <summary>
+        /// Handles the click event of the btnAddUpdate button.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             BO.Engineer engineer = CurrentEngineer[0];

@@ -20,7 +20,7 @@
         <Label Content="Cost"  HorizontalAlignment="Left" Margin="40,332,0,0" VerticalAlignment="Top" Foreground="White"/>
 
         <TextBox  HorizontalAlignment="Left" Margin="174,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
-           Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}"/>
+           Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBoolEnableKey}}"/>
         <TextBox  HorizontalAlignment="Left" Margin="174,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"
           Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
         <TextBox  HorizontalAlignment="Left" Margin="174,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="White" Foreground="Black"

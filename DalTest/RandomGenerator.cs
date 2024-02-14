@@ -150,4 +150,25 @@ internal class RandomGenerator //class for generate first value by random
         id = tasks[i]!.Id;
         return id;
     }
+    public int FindEngineerForTask()
+    {
+        List<Engineer?> engineerList = s_dal!.Engineer!.ReadAll().ToList();
+        List<Task?> taskList = s_dal!.Task.ReadAll().ToList();
+        bool found = false;
+        foreach (var engineer in engineerList)
+        {
+            foreach (var task in taskList)
+            {
+                if (task!.EngineerId == engineer!.Id)
+                {
+                    found = true;
+                    break;
+                }
+                if (!found)
+                    return engineer.Id;
+            }
+
+        }
+
+    }
 }

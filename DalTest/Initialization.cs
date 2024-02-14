@@ -4,7 +4,7 @@ using DO;
 using System.Security.Cryptography;
 using System.Xml.Linq;
 
-public static class Initialization 
+public static class Initialization
 {
     private static IDal? s_dal;
     private static RandomGenerator r = new RandomGenerator();
@@ -19,7 +19,7 @@ public static class Initialization
         CreateTasks();
         CreateDependency();
     }
-    public static void CreateEngineers() 
+    public static void CreateEngineers()
     {
         string[] names = new string[10];
         int _id;
@@ -40,7 +40,7 @@ public static class Initialization
             else
                 _id = r.GenerateEngineerID();
             _email = _name.Split(" ")[0] + "@exapmle.com";
-            _cost= r.GenerateEngineerCost();
+            _cost = r.GenerateEngineerCost();
             EngineerExperience _level = (EngineerExperience)r.GenerateEngineerLevel();
             Engineer newEngineer = new(_id, _name, _email, _level, _cost);
             s_dal!.Engineer!.Create(newEngineer);
@@ -54,6 +54,7 @@ public static class Initialization
         EngineerExperience _complexityLevel;
         string _description, _alias;
         DateTime _crearedAt, _forecastDate;
+        int _engineerId;
         for (int i = 0; i < descriptions.Length; i++)
         {
             _description = descriptions[i];
@@ -61,11 +62,13 @@ public static class Initialization
             _crearedAt = DateTime.Now;
             _forecastDate = _crearedAt.AddDays(weeks[i] * 7);
             _complexityLevel = (EngineerExperience)r.GenerateEngineerLevel();
-            Task newTask = new(0,_alias,_description,false,_crearedAt,0,_complexityLevel);
+            _engineerId = r.FindEngineerForTask();
+            Task newTask = new(0, _alias, _description, false, _crearedAt, _engineerId, _complexityLevel);
             s_dal!.Task!.Create(newTask);
         }
+
     }
-  
+
     public static void CreateDependency()
     {
         List<Task?> list = s_dal!.Task.ReadAll().ToList();
@@ -77,5 +80,7 @@ public static class Initialization
             s_dal!.Dependency.Create(newDependency);
         }
     }
+
+    
 
 }

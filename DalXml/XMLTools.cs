@@ -5,6 +5,9 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
+/// <summary>
+/// A static class providing XML-related utility functions for data access layer.
+/// </summary>
 static class XMLTools
 {
     const string s_xml_dir = @"..\xml\";

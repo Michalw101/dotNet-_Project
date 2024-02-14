@@ -1,15 +1,24 @@
-﻿namespace BO;
-
-public static class Tools
+﻿namespace BO
 {
-    public static string ToStringProperty(this object p)
+    /// <summary>
+    /// Provides utility methods for the business logic layer.
+    /// </summary>
+    public static class Tools
     {
-        var prop = p.GetType().GetProperties();
-        string str = "";
-        foreach (var property in prop)
+        /// <summary>
+        /// Converts an object's properties to a string representation.
+        /// </summary>
+        /// <param name="p">The object whose properties to convert.</param>
+        /// <returns>A string representation of the object's properties.</returns>
+        public static string ToStringProperty(this object p)
         {
-            str += property.Name + " : " + property.GetValue(p) + "\n";
+            var prop = p.GetType().GetProperties();
+            string str = "";
+            foreach (var property in prop)
+            {
+                str += property.Name + " : " + property.GetValue(p) + "\n";
+            }
+            return str;
         }
-        return str;
     }
 }

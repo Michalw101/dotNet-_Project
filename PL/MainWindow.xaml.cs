@@ -18,18 +18,30 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the MainWindow class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Event handler for the Engineer button click.
+        /// </summary>
         private void btnEnginner_Clicked(object sender, RoutedEventArgs e)
         {
             new EngineerListWindow().Show();
         }
+        /// <summary>
+        /// Event handler for the Task button click.
+        /// </summary>
         private void btnTask_Clicked(object sender, RoutedEventArgs e)
         {
             new TaskListWindow().Show();
         }
+        /// <summary>
+        /// Event handler for the Initialization button click.
+        /// </summary>
         private void btnInitalization_Clicked(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to initialization?",

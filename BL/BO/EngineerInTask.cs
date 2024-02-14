@@ -1,10 +1,20 @@
 ﻿using DO;
 
-namespace BO;
-
-public class EngineerInTask
+namespace BO
 {
-    public int Id { get; init; }
-    public required string Name { get; set; } 
+    /// <summary>
+    /// Represents an Engineer assigned to a Task entity.
+    /// </summary>
+    public class EngineerInTask
+    {
+        /// <summary>
+        /// Gets or sets the ID of the Engineer assigned to the Task.
+        /// </summary>
+        public int Id { get; init; }
 
+        /// <summary>
+        /// Gets or sets the name of the Engineer assigned to the Task.
+        /// </summary>
+        public string Name { get; set; }
+    }
 }

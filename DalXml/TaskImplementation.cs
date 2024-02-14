@@ -6,8 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+/// <summary>
+/// Implementation of the <see cref="ITask"/> interface.
+/// </summary>
 internal class TaskImplementation : ITask
 {
+    /// <summary>
+    /// Creates a new task.
+    /// </summary>
+    /// <param name="item">The task to create.</param>
+    /// <returns>The ID of the newly created task.</returns>
     public int Create(Task item)
     {
         int id = XMLTools.GetAndIncreaseNextId("data-config", "NextTaskId");
@@ -17,6 +25,10 @@ internal class TaskImplementation : ITask
         return id;
     }
 
+    /// <summary>
+    /// Deletes a task by ID.
+    /// </summary>
+    /// <param name="id">The ID of the task to delete.</param>
     public void Delete(int id)
     {
         List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");
@@ -36,16 +48,31 @@ internal class TaskImplementation : ITask
         }
     }
 
+    /// <summary>
+    /// Reads a task by ID.
+    /// </summary>
+    /// <param name="id">The ID of the task to read.</param>
+    /// <returns>The task with the specified ID.</returns>
     public Task? Read(int id)
     {
         return XMLTools.LoadListFromXMLSerializer<Task>("tasks").FirstOrDefault(element => element.Id == id);
     }
 
+    /// <summary>
+    /// Reads a task based on a filter.
+    /// </summary>
+    /// <param name="filter">The filter to apply when reading the task.</param>
+    /// <returns>The task that matches the filter.</returns>
     public Task? Read(Func<Task, bool> filter)
     {
         return XMLTools.LoadListFromXMLSerializer<Task>("tasks").FirstOrDefault(filter);
     }
 
+    /// <summary>
+    /// Reads all tasks based on an optional filter.
+    /// </summary>
+    /// <param name="filter">The optional filter to apply when reading tasks.</param>
+    /// <returns>An enumerable collection of tasks.</returns>
     public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
         if (filter == null)
@@ -54,6 +81,10 @@ internal class TaskImplementation : ITask
             return XMLTools.LoadListFromXMLSerializer<Task>("tasks").Where(filter);
     }
 
+    /// <summary>
+    /// Updates an existing task.
+    /// </summary>
+    /// <param name="item">The task to update.</param>
     public void Update(Task item)
     {
         List<Task> list = XMLTools.LoadListFromXMLSerializer<Task>("tasks");

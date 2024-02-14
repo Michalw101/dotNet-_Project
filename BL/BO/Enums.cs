@@ -1,18 +1,26 @@
-﻿namespace BO;
+﻿namespace BO
+{
+    /// <summary>
+    /// Represents different levels of experience for an Engineer.
+    /// </summary>
+    public enum EngineerExperience
+    {
+        Beginner,
+        AdvancedBeginner,
+        Intermediate,
+        Advanced,
+        Expert,
+        None
+    }
 
-public enum EngineerExperience
-{
-    Beginner,
-    AdvancedBeginner,
-    Intermediate,
-    Advanced,
-    Expert,
-    None
-}
-public enum Status
-{
-    Unscheduled,
-    Scheduled,
-    OnTrack,
-    InJeopardy
+    /// <summary>
+    /// Represents the status of a Task.
+    /// </summary>
+    public enum Status
+    {
+        Unscheduled,
+        Scheduled,
+        OnTrack,
+        Done
+    }
 }

@@ -131,26 +131,34 @@ namespace BlImplementation
         private BO.Task MapToBOTask(DO.Task doTask)
         {
             DO.Task? task = null;
-            IEnumerable<DO.Dependency?> list = _dal.Dependency.ReadAll().Where(dep => dep.DependsOnTask == doTask.Id);
-            List<BO.TaskInList>? dependencies = new List<TaskInList>();
-            foreach (DO.Dependency dep in list)
+            IEnumerable<DO.Dependency?> list = _dal.Dependency.ReadAll().Where(dep => dep != null && dep.DependsOnTask == doTask.Id);
+            List<BO.TaskInList> dependencies = new List<BO.TaskInList>();
+            foreach (DO.Dependency? dep in list)
             {
                 if (dep != null)
                 {
-                    task = _dal.Task.Read(dep!.DependentTask);
-                    dependencies!.Add(new BO.TaskInList() { Id = task!.Id, Description = task.Description, Alias = task.Alias, Status = CheckStatus(task) });
+                    task = _dal.Task.Read(dep.DependentTask);
+                    if (task != null)
+                    {
+                        dependencies.Add(new BO.TaskInList()
+                        {
+                            Id = task.Id,
+                            Description = task.Description,
+                            Alias = task.Alias,
+                            Status = CheckStatus(task)
+                        });
+                    }
                 }
             }
 
-            BO.Engineer? BOengineer = null;
+
+            BO.EngineerInTask? BOengineer = null;
             if (doTask.EngineerId != 0)
             {
                 DO.Engineer? DOengineer = _dal.Engineer.Read(Convert.ToInt32(doTask.EngineerId));
-                BOengineer = new BO.Engineer() { Id = DOengineer.Id, Name = DOengineer.Name, Email = DOengineer.Email };
+                BOengineer = new BO.EngineerInTask() { Id = DOengineer!.Id, Name = DOengineer.Name };
             }
-                
-
-
+               
             return new BO.Task()
             {
                 Id = doTask.Id,
@@ -174,7 +182,7 @@ namespace BlImplementation
         {
             Status status;
             if (doTask.CompleteDate < DateTime.Now)
-                status = Status.InJeopardy;
+                status = Status.Done;
             else if (doTask.ScheduledDate > DateTime.Now || doTask.ScheduledDate == null)
                 status = Status.Unscheduled;
             else if (doTask.StartDate < DateTime.Now)

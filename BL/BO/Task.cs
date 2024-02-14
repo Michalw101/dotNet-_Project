@@ -19,6 +19,6 @@ public class Task
     public DateTime? CompleteDate { get; set; } = null;
     public string? Deliverables { get; set; } = null;
     public string? Remarks { get; set; } = null;
-    public Engineer? Engineer { get; set; } = null;
+    public EngineerInTask? Engineer { get; set; } = null;
     public override string ToString() => this.ToStringProperty();
 }

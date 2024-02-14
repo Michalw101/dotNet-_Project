@@ -23,8 +23,12 @@ namespace PL.Task
             else
             {
                 state = 0; //add
-                CurrentTask = new ObservableCollection<BO.Task> { new BO.Task() {
-                Id = -1, Description = "", Alias="", CreatedAtDate = DateTime.Now, Status=BO.Status.Unscheduled} };
+                CurrentTask = new ObservableCollection<BO.Task> { new BO.Task(){
+                    Id = -1,
+                    Description = "",
+                    Alias="",
+                    CreatedAtDate = DateTime.Now,
+                    Status=BO.Status.Unscheduled} };
             }
         }
 
